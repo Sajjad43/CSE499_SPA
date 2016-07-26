@@ -45,7 +45,15 @@ var app=angular.module('cricket')
 
     .controller('infoPlayer',['$scope','$stateParams',function($scope,$stateParams){
        
-        console.log($stateParams.country);
+         console.log($stateParams.country);
+         console.log($stateParams.player);
+        $scope.playerName=$stateParams.player+"";
+        
+    }])
+
+    .controller('playerList',['$scope','$stateParams',function($scope,$stateParams){
+       
+         
         
     }])
 

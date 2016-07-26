@@ -32,6 +32,17 @@ body {
   color: #e7e7e7;
   background-color: transparent;
 }
-.progress{
-  height: 10px;
+tr {
+width: 100%;
+display: inline-table;
+}
+
+table{
+ 
+}
+tbody{
+  overflow-y: scroll;
+  height: 200px;
+  width: 100%;
+  
 }

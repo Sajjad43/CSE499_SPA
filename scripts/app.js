@@ -85,7 +85,7 @@ angular.module('cricket',['ui.router','iso-3166-country-codes'])
     
         .state('home.player',{
         
-            url:'/player/:country',
+            url:'/player/:country/:player',
             views:{
                 'content@':{
                     templateUrl:'views/player.html',
@@ -98,6 +98,10 @@ angular.module('cricket',['ui.router','iso-3166-country-codes'])
                 'graph@home.player':{
                     templateUrl:'views/player/player_bat_1.html',
                     controller:'player_bat_1'
+                },
+                'playerList@home.player':{
+                    templateUrl:'views/player/playerList.html',
+                    controller:'playerList'
                 }
             }
         })
