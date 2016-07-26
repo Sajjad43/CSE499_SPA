@@ -1,0 +1,58 @@
+ <div class="container-fluid">
+    <div class="row" ng-controller="mapTeam">
+
+        <div class="col-sm-4">
+           <center>
+
+               <h3>SELECT A TEAM</h3>
+               <div id="mapTeam" class="makingRelative" style=" width:90%;height:300px;"></div>
+            </center>
+        </div>
+
+
+        <div class="col-sm-8">
+
+            <div ui-view="info"></div>
+            
+            <div class="row">
+                <p style="height:10px"></p>
+                <center>
+                    <button type="button" class=" btn btn-default btn-info">Batting</button>
+                    <button type="button" class=" btn btn-default btn-success">Bowling</button>
+                </center>
+                <p style="height:5px;"></p>
+            </div>
+            <div class="row" >
+                
+                   <div ui-view='graph' class="col-sm-offset-1 col-sm-10 pull-left container"></div>
+
+                       <center>
+
+                              <ul class="pagination">
+                                <li>
+                                  <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                  </a>
+                                </li>
+								<li><a ui-sref=".team_bat_1" ui-sref-active='active'>1</a></li>
+				                 <li ><a ui-sref=".team_bat_2" ui-sref-active='active'>2</a></li>
+				                <li><a ui-sref=".team_bat_3" ui-sref-active='active'>3</a></li>
+				                <li><a ui-sref=".team_bowl_1" ui-sref-active='active'>4</a></li>
+				                        
+                                <li>
+                                 <a href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                                </li>
+                              </ul>
+
+                        </center>
+
+            </div>
+
+
+        </div>
+
+     </div>
+
+ 
