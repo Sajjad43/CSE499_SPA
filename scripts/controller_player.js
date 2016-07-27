@@ -2,10 +2,11 @@ var app=angular.module('cricket')
 
   
 
-    .controller('mapPlayer',['$scope','$state','$stateParams',function($scope,$state,$stateParams){
+    .controller('mapPlayer',['$scope','$state','$stateParams','$cookies',function($scope,$state,$stateParams,$cookies){
 
-        if($stateParams.country!=undefined){
-            $scope.country=$stateParams.country;
+        if($cookies.get('country')!=undefined){
+            $scope.country=$cookies.get('country');
+            console.log("player controller-"+$cookies.get('country'));
         } 
         else{
             $scope.country='US';
@@ -37,17 +38,17 @@ var app=angular.module('cricket')
         
         map.addListener('clickMapObject',function(event){
             selectRegion(event.mapObject.id);
-            $state.go('home.player',{country:event.mapObject.id}) 
+            $state.go('player') ; $cookies.put('country',event.mapObject.id);
+           
         });
         
 
     }])
 
-    .controller('infoPlayer',['$scope','$stateParams',function($scope,$stateParams){
+    .controller('infoPlayer',['$scope','$stateParams','$cookies',function($scope,$stateParams,$cookies){
        
-         console.log($stateParams.country);
-         console.log($stateParams.player);
-        $scope.playerName=$stateParams.player+"";
+         
+        $scope.playerName=$cookies.get('country');
         
     }])
 

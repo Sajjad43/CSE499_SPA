@@ -1,15 +1,16 @@
 var app=angular.module('cricket')
 
    
-    .controller('mapTeam',['$scope','$stateParams','$state',function($scope,$stateParams,$state){
-        console.log($stateParams.country);
-        if($stateParams.country!=undefined){
-             $scope.country=$stateParams.country;
-             console.log($scope.country);
+    .controller('mapTeam',['$scope','$stateParams','$state','$cookies',function($scope,$stateParams,$state,$cookies){
+      
+        if($cookies.get('country')!=undefined){
+             $scope.country=$cookies.get('country');
+                 
         }
         else{
              $scope.country='AU';
         }
+        console.log('team controller- '+$scope.country);
        
         var map=AmCharts.makeChart( "mapTeam",{
                
@@ -21,7 +22,7 @@ var app=angular.module('cricket')
                     },
                     "areasSettings": {
                       
-                        "selectedColor": "#CC0000",
+                       "selectedColor": "#CC0000",
                         "selectable":true
                     },
                     
@@ -39,8 +40,10 @@ var app=angular.module('cricket')
         
         map.addListener('clickMapObject',function(event){
             selectRegion(event.mapObject.id);
-            
-            $state.go('home.team',{'country':event.mapObject.id});
+            $cookies.put('country',event.mapObject.id);
+            console.log("controller team add listener");
+            e.preventDefault();
+            $state.transitionTo('team');
             
         })
         
@@ -333,10 +336,10 @@ var app=angular.module('cricket')
         })
     })
 
-.controller('info',['$scope','$stateParams','ISO3166',function($scope,$stateParams,ISO3166){
+.controller('info',['$scope','$stateParams','ISO3166','$cookies',function($scope,$stateParams,ISO3166,$cookies){
     
    // console.log($stateParams.country);
-    $scope.country=ISO3166.getCountryName($stateParams.country);
+    $scope.country=ISO3166.getCountryName($cookies.get('country'));
     
     
 }])

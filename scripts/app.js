@@ -1,4 +1,4 @@
-angular.module('cricket',['ui.router','iso-3166-country-codes'])
+angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies'])
  
  .config(function($stateProvider,$urlRouterProvider){
     
@@ -12,25 +12,29 @@ angular.module('cricket',['ui.router','iso-3166-country-codes'])
                  },
                 'header':{
                     templateUrl:'views/header.html'
+                   
                 }
             }
             
         })
     
     
-        .state('home.team',{
-            url:'/team/:country',
+        .state('team',{
+            url:'/team',
             views:{
-                
+               'header@':{
+                    templateUrl:'views/header.html'
+                   
+                },
                 'content@':{
                      templateUrl:'views/team.html',
                      controller:'mapTeam'
                  },
-                'info@home.team':{
+                'info@team':{
                     templateUrl:'views/team/info.html',
                     controller:'info'
                 },
-                'graph@home.team':{
+                'graph@team':{
                     templateUrl:'views/team/team_bat_1.html',
                     controller:'team_bat_1'
                 }
@@ -38,44 +42,44 @@ angular.module('cricket',['ui.router','iso-3166-country-codes'])
             }
         })
     
-         .state('home.team.team_bat_1',{
+         .state('team.team_bat_1',{
             url:'/0',
             views:{
                
-                'graph@home.team':{
+                'graph@team':{
                     templateUrl:'views/team/team_bat_1.html',
                     controller:'team_bat_1'
                 }
                 
             }
         })
-        .state('home.team.team_bat_2',{
+        .state('team.team_bat_2',{
             url:'/1',
             views:{
                
-                'graph@home.team':{
+                'graph@team':{
                     templateUrl:'views/team/team_bat_2.html',
                     controller:'team_bat_2'
                 }
                 
             }
         })
-        .state('home.team.team_bat_3',{
+        .state('team.team_bat_3',{
             url:'/2',
             views:{
                
-                'graph@home.team':{
+                'graph@team':{
                     templateUrl:'views/team/team_bat_3.html',
                     controller:'team_bat_3'
                 }
                 
             }
         })
-        .state('home.team.team_bowl_1',{
+        .state('team.team_bowl_1',{
             url:'/3',
             views:{
                
-                'graph@home.team':{
+                'graph@team':{
                     templateUrl:'views/team/team_bowl_1.html',
                     controller:'team_bowl_1'
                 }
@@ -83,53 +87,59 @@ angular.module('cricket',['ui.router','iso-3166-country-codes'])
             }
         })
     
-        .state('home.player',{
+        .state('player',{
         
-            url:'/player/:country/:player',
+            url:'/player',
             views:{
+                
+              'header@':{
+                    templateUrl:'views/header.html'
+                   
+                },
+                
                 'content@':{
                     templateUrl:'views/player.html',
                     controller:'mapPlayer'
                 },
-                'info@home.player':{
+                'info@player':{
                     templateUrl:'views/player/info.html',
                     controller:'infoPlayer'
                 },
-                'graph@home.player':{
+                'graph@player':{
                     templateUrl:'views/player/player_bat_1.html',
                     controller:'player_bat_1'
                 },
-                'playerList@home.player':{
+                'playerList@player':{
                     templateUrl:'views/player/playerList.html',
                     controller:'playerList'
                 }
             }
         })
         
-    .state('home.player.player_bat_2',{
+    .state('player.player_bat_2',{
         url:'/2',
         views:{
-            'graph@home.player':{
+            'graph@player':{
                 templateUrl:'views/player/player_bat_2.html',
                 controller:'player_bat_2'
             }
             
         }
     })
-    .state('home.player.player_bat_1',{
+    .state('player.player_bat_1',{
         url:'/0',
         views:{
-            'graph@home.player':{
+            'graph@player':{
                 templateUrl:'views/player/player_bat_1.html',
                 controller:'player_bat_1'
             }
             
         }
     })
-    .state('home.player.player_bowl_1',{
+    .state('player.player_bowl_1',{
         url:'/1',
         views:{
-            'graph@home.player':{
+            'graph@player':{
                 templateUrl:'views/player/player_bowl_1.html',
                 controller:'player_bowl_1'
             }

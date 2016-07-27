@@ -2,7 +2,9 @@
 
 var myApp = angular.module('cricket')
 
-    .controller('home',['$scope','$state',function($scope,$state){
+   
+      
+        .controller('home',['$scope','$state','$cookies',function($scope,$state,$cookies){
 
         var map = AmCharts.makeChart( "mapdiv", {
                  
@@ -27,9 +29,10 @@ var myApp = angular.module('cricket')
             if(event.mapObject.id!=undefined){
                map.dataProvider.areas=[{'id':''+event.mapObject.id,'showAsSelected':true}];
                 map.validateData();
+              
+                $cookies.put('country',event.mapObject.id);
                 
-                
-                $state.go('home.team',{country:''+event.mapObject.id})
+                $state.go('team');
             }
             
          });
