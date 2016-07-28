@@ -6,30 +6,28 @@ angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies'])
         .state('home',{
             url:'/home',
             views:{
-                 'content':{
-                     templateUrl:'views/home.html',
-                     controller:'home'
-                 },
                 'header':{
-                    templateUrl:'views/header.html'
-                   
+                    templateUrl:'views/home_header.html',
+
+                },
+                'content':{
+                    templateUrl:'views/home.html',
+                    controller:'home'
                 }
             }
-            
         })
-    
     
         .state('team',{
             url:'/team',
             views:{
-               'header@':{
-                    templateUrl:'views/header.html'
-                   
+                'header':{
+                    templateUrl:'views/header.html',
+
                 },
                 'content@':{
-                     templateUrl:'views/team.html',
-                     controller:'mapTeam'
-                 },
+                    templateUrl:'views/team.html',
+                   
+                },
                 'info@team':{
                     templateUrl:'views/team/info.html',
                     controller:'info'
@@ -40,66 +38,73 @@ angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies'])
                 }
                 
             }
+        
         })
     
-         .state('team.team_bat_1',{
-            url:'/0',
+       .state('team.team_bat_1',{
+            url:"/1",
             views:{
-               
+                'info@team':{
+                        templateUrl:'views/team/info.html',
+                        controller:'info'
+                    },
                 'graph@team':{
-                    templateUrl:'views/team/team_bat_1.html',
-                    controller:'team_bat_1'
+                        templateUrl:'views/team/team_bat_1.html',
+                        controller:'team_bat_1'
                 }
-                
-            }
+            }    
         })
-        .state('team.team_bat_2',{
-            url:'/1',
-            views:{
-               
-                'graph@team':{
-                    templateUrl:'views/team/team_bat_2.html',
-                    controller:'team_bat_2'
-                }
-                
-            }
-        })
-        .state('team.team_bat_3',{
+     .state('team.team_bat_2',{
+            
             url:'/2',
             views:{
-               
+                'info@team':{
+                        templateUrl:'views/team/info.html',
+                        controller:'info'
+                    },
                 'graph@team':{
-                    templateUrl:'views/team/team_bat_3.html',
-                    controller:'team_bat_3'
-                }
-                
+                        templateUrl:'views/team/team_bat_2.html',
+                        controller:'team_bat_2'
+                 }
             }
         })
-        .state('team.team_bowl_1',{
+     .state('team.team_bat_3',{
+            
             url:'/3',
             views:{
-               
+                'info@team':{
+                        templateUrl:'views/team/info.html',
+                        controller:'info'
+                    },
                 'graph@team':{
-                    templateUrl:'views/team/team_bowl_1.html',
-                    controller:'team_bowl_1'
+                        templateUrl:'views/team/team_bat_3.html',
+                        controller:'team_bat_3'
                 }
-                
             }
         })
-    
-        .state('player',{
-        
-            url:'/player',
+     .state('team.team_bowl_1',{
+           
+            url:'/4',
             views:{
-                
-              'header@':{
-                    templateUrl:'views/header.html'
-                   
+                'info@team':{
+                        templateUrl:'views/team/info.html',
+                        controller:'info'
+                    },
+                'graph@team':{
+                        templateUrl:'views/team/team_bowl_1.html',
+                        controller:'team_bowl_1'
+                 }
+            }    
+        })
+    
+    .state('player',{
+           url:'/player',
+            views:{
+                'header':{
+                    templateUrl:'views/header.html',
                 },
-                
-                'content@':{
+                'content':{
                     templateUrl:'views/player.html',
-                    controller:'mapPlayer'
                 },
                 'info@player':{
                     templateUrl:'views/player/info.html',
@@ -108,50 +113,64 @@ angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies'])
                 'graph@player':{
                     templateUrl:'views/player/player_bat_1.html',
                     controller:'player_bat_1'
-                },
-                'playerList@player':{
-                    templateUrl:'views/player/playerList.html',
-                    controller:'playerList'
                 }
-            }
-        })
-        
-    .state('player.player_bat_2',{
-        url:'/2',
-        views:{
-            'graph@player':{
-                templateUrl:'views/player/player_bat_2.html',
-                controller:'player_bat_2'
-            }
-            
-        }
+            }  
     })
     .state('player.player_bat_1',{
-        url:'/0',
-        views:{
-            'graph@player':{
-                templateUrl:'views/player/player_bat_1.html',
-                controller:'player_bat_1'
-            }
-            
-        }
+           url:'/1',
+            views:{
+               
+                'info@player':{
+                    templateUrl:'views/player/info.html',
+                    controller:'infoPlayer'
+                },
+                'graph@player':{
+                    templateUrl:'views/player/player_bat_1.html',
+                    controller:'player_bat_1'
+                }
+            }  
+    })
+    .state('player.player_bat_2',{
+           url:'/2',
+            views:{
+               
+                'info@player':{
+                    templateUrl:'views/player/info.html',
+                    controller:'infoPlayer'
+                },
+                'graph@player':{
+                    templateUrl:'views/player/player_bat_2.html',
+                    controller:'player_bat_2'
+                }
+            }  
     })
     .state('player.player_bowl_1',{
-        url:'/1',
-        views:{
-            'graph@player':{
-                templateUrl:'views/player/player_bowl_1.html',
-                controller:'player_bowl_1'
-            }
-            
-        }
+           url:'/3',
+            views:{
+               
+                'info@player':{
+                    templateUrl:'views/player/info.html',
+                    controller:'infoPlayer'
+                },
+                'graph@player':{
+                    templateUrl:'views/player/player_bowl_1.html',
+                    controller:'player_bowl_1'
+                }
+            }  
     })
-        
     
+    /*.state('match',{
+        url:'/match',
+        views:{
+            'header':{
+                    templateUrl:'views/header.html'
+                },
+            'content':{
+                templateUrl:'views/match.html'
+                }
+        }
+    })*/
     
-    
-    $urlRouterProvider.otherwise('/home');
-    
-    
+     $urlRouterProvider.otherwise('/home');
     
     })

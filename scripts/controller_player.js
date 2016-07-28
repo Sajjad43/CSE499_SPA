@@ -3,15 +3,8 @@ var app=angular.module('cricket')
   
 
     .controller('mapPlayer',['$scope','$state','$stateParams','$cookies',function($scope,$state,$stateParams,$cookies){
-
-        if($cookies.get('country')!=undefined){
-            $scope.country=$cookies.get('country');
-            console.log("player controller-"+$cookies.get('country'));
-        } 
-        else{
-            $scope.country='US';
-        }
-        
+        var country=$cookies.get('country');
+      
         var map=AmCharts.makeChart( "mapPlayer", {
 
                     "type": "map",
@@ -34,12 +27,12 @@ var app=angular.module('cricket')
             map.validateData();
         }
         
-        selectRegion($scope.country);
+        selectRegion(country);
         
         map.addListener('clickMapObject',function(event){
             selectRegion(event.mapObject.id);
-            $state.go('player') ; $cookies.put('country',event.mapObject.id);
-           
+            $cookies.put('country',event.mapObject.id)
+           $state.reload();
         });
         
 
@@ -47,8 +40,8 @@ var app=angular.module('cricket')
 
     .controller('infoPlayer',['$scope','$stateParams','$cookies',function($scope,$stateParams,$cookies){
        
-         
-        $scope.playerName=$cookies.get('country');
+         $scope.playerName='Inzamam';
+       
         
     }])
 

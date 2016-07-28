@@ -2,16 +2,8 @@ var app=angular.module('cricket')
 
    
     .controller('mapTeam',['$scope','$stateParams','$state','$cookies',function($scope,$stateParams,$state,$cookies){
-      
-        if($cookies.get('country')!=undefined){
-             $scope.country=$cookies.get('country');
-                 
-        }
-        else{
-             $scope.country='AU';
-        }
-        console.log('team controller- '+$scope.country);
        
+       var country=$cookies.get('country');
         var map=AmCharts.makeChart( "mapTeam",{
                
                     "type": "map",
@@ -35,16 +27,14 @@ var app=angular.module('cricket')
             map.validateData();
         }
         
-        selectRegion($scope.country);
+        selectRegion(country);
                 
         
         map.addListener('clickMapObject',function(event){
             selectRegion(event.mapObject.id);
+            console.log('team map -'+$state.is('team'));
             $cookies.put('country',event.mapObject.id);
-            console.log("controller team add listener");
-            e.preventDefault();
-            $state.transitionTo('team');
-            
+            $state.reload('team');
         })
         
         
@@ -52,7 +42,7 @@ var app=angular.module('cricket')
     }])
 
     .controller('team_bat_3',function($scope){
-          console.log($scope.country);
+          
         Highcharts.chart('team_bat_3',{
                chart:{
                    type:'heatmap',
@@ -112,7 +102,7 @@ var app=angular.module('cricket')
     })
 
     .controller('team_bowl_1',function($scope){
-          console.log($scope.country);
+         
         Highcharts.chart('team_bowl_1',{
                 chart:{
                     //type:'column'
@@ -222,9 +212,10 @@ var app=angular.module('cricket')
     })
 
 
-    .controller('team_bat_1',function($scope){
+    .controller('team_bat_1',['$scope','$state',function($scope,$state){
         
-          console.log($scope.country);
+         //console.log("Team controller team_bat_1 "+$cookies.get('country'));
+        //console.log('team bat -'+$state.is('team'));
         Highcharts.chart('team_bat_1',{
             
             title: {
@@ -264,7 +255,7 @@ var app=angular.module('cricket')
             },]
 
         })
-    })
+    }])
 
     .controller('team_bat_2',function($scope,ISO3166){
        
@@ -336,10 +327,12 @@ var app=angular.module('cricket')
         })
     })
 
-.controller('info',['$scope','$stateParams','ISO3166','$cookies',function($scope,$stateParams,ISO3166,$cookies){
+.controller('info',['$scope','$state','$stateParams','ISO3166','$cookies',function($scope,$state,$stateParams,ISO3166,$cookies){
     
-   // console.log($stateParams.country);
-    $scope.country=ISO3166.getCountryName($cookies.get('country'));
+     $scope.country=ISO3166.getCountryName($cookies.get('country'));        
+    console.log('team info -'+$state.is('team'));
+   
+    
     
     
 }])

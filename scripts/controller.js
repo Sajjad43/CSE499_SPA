@@ -29,9 +29,8 @@ var myApp = angular.module('cricket')
             if(event.mapObject.id!=undefined){
                map.dataProvider.areas=[{'id':''+event.mapObject.id,'showAsSelected':true}];
                 map.validateData();
-              
-                $cookies.put('country',event.mapObject.id);
                 
+                $cookies.put('country',event.mapObject.id);    
                 $state.go('team');
             }
             
