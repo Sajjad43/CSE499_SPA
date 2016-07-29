@@ -1,0 +1,40 @@
+
+<div class="container-fluid" ng-controller="mapMatch" >
+         <div class="row">
+                 <div class="col-sm-4" >
+                     <center>
+                          <h3>SELECT A TEAM</h3>
+                          <div id="mapMatch" class="makingRelative" style=" width:90%;height:300px;"></div>
+                     </center>
+                 </div>
+
+                 <div class="col-sm-8">
+                         <div ui-view='info'></div>
+                         <div class="row">
+                                <div class="col-sm-12">
+                                    <ul class="nav nav-tabs">
+                                        <li  role="presentation"><a>Pakistan</a></li>
+                                         <li  role="presentation"><a>India</a></li>
+                                     </ul>
+                                 </div>
+                                <div class="col-sm-10"  ui-view='graph'></div>
+
+                         </div>
+                        <center>
+                            <ul class="pagination">
+                                <li><a ui-sref="" ui-sref-active='active'>1</a></li>
+                                     <li ><a ui-sref="" ui-sref-active='active'>1</a></li>
+                                     <li><a ui-sref="" ui-sref-active='active'>2</a></li>
+                                     <li><a ui-sref="" ui-sref-active='active'>3</a></li>
+                                     <li ><a ui-sref="" ui-sref-active='active'>4</a></li>
+                                     <li><a ui-sref="" ui-sref-active='active'>5</a></li>
+                                     <li><a ui-sref="" ui-sref-active='active'>6</a></li>       
+                             </ul>
+
+                        </center>
+                </div>
+        </div>
+</div>
+    
+       
+    
