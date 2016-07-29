@@ -1,8 +1,8 @@
-var app=angular.module('match',["highcharts-ng",'ui.bootstrap'])
+var app=angular.module('cricket')
 
-     .controller('map',['$scope',function($scope){
+     .controller('mapMatch',['$scope',function($scope){
 
-            AmCharts.makeChart( "mapdiv", {
+            AmCharts.makeChart( "mapMatch", {
                
                     "type": "map",
                     "dataProvider": {
@@ -18,42 +18,12 @@ var app=angular.module('match',["highcharts-ng",'ui.bootstrap'])
                   });
          
          
-            $scope.team1='./views/match_bat_2.html';
-            $scope.team2='./views/match_bat_1.html';
-            $scope.item=0;
-        
-            $scope.changePage=function(name){
-                $scope.team1='./views/'+name;
-                console.log(name);
-            };
-            $scope.changePage1=function(name){
-                $scope.team2='./views/'+name;
-            };
-          $scope.array=[
-            'Jogn','sall','erre','retf','wrete','tamal','akash','ragib','toukir'
-            
-        ];
+           
+    
 
         }])
     
-      .controller('pagination',['$scope',function($scope){
-
-           
-            $scope.team1='./views/match_bat_2.html';
-            $scope.team2='./views/match_bat_1.html';
-            $scope.item=0;
-        
-            $scope.changePage=function(name){
-                $scope.team1='./views/'+name;
-                console.log(name);
-            };
-            $scope.changePage1=function(name){
-                $scope.team2='./views/'+name;
-            };
-            
-            
-
-     }])
+    
      
      .controller('match_bowl_3',['$scope',function($scope){
        

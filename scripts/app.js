@@ -1,4 +1,4 @@
-angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies'])
+angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies',"highcharts-ng"])
  
  .config(function($stateProvider,$urlRouterProvider){
     
@@ -33,8 +33,8 @@ angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies'])
                     controller:'info'
                 },
                 'graph@team':{
-                    templateUrl:'views/team/team_bat_1.html',
-                    controller:'team_bat_1'
+                    templateUrl:'views/team/team_bat_1.html'
+                    //controller:'team_bat_1'
                 }
                 
             }
@@ -97,79 +97,6 @@ angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies'])
             }    
         })
     
-    .state('player',{
-           url:'/player',
-            views:{
-                'header':{
-                    templateUrl:'views/header.html',
-                },
-                'content':{
-                    templateUrl:'views/player.html',
-                },
-                'info@player':{
-                    templateUrl:'views/player/info.html',
-                    controller:'infoPlayer'
-                },
-                'graph@player':{
-                    templateUrl:'views/player/player_bat_1.html',
-                    controller:'player_bat_1'
-                }
-            }  
-    })
-    .state('player.player_bat_1',{
-           url:'/1',
-            views:{
-               
-                'info@player':{
-                    templateUrl:'views/player/info.html',
-                    controller:'infoPlayer'
-                },
-                'graph@player':{
-                    templateUrl:'views/player/player_bat_1.html',
-                    controller:'player_bat_1'
-                }
-            }  
-    })
-    .state('player.player_bat_2',{
-           url:'/2',
-            views:{
-               
-                'info@player':{
-                    templateUrl:'views/player/info.html',
-                    controller:'infoPlayer'
-                },
-                'graph@player':{
-                    templateUrl:'views/player/player_bat_2.html',
-                    controller:'player_bat_2'
-                }
-            }  
-    })
-    .state('player.player_bowl_1',{
-           url:'/3',
-            views:{
-               
-                'info@player':{
-                    templateUrl:'views/player/info.html',
-                    controller:'infoPlayer'
-                },
-                'graph@player':{
-                    templateUrl:'views/player/player_bowl_1.html',
-                    controller:'player_bowl_1'
-                }
-            }  
-    })
-    
-    /*.state('match',{
-        url:'/match',
-        views:{
-            'header':{
-                    templateUrl:'views/header.html'
-                },
-            'content':{
-                templateUrl:'views/match.html'
-                }
-        }
-    })*/
     
      $urlRouterProvider.otherwise('/home');
     
