@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bower": "^1.7.9"
+    "bower": "^1.7.9",
+    "highcharts-ng": "0.0.11",
+    "ng-typeahead": "^1.0.7"
   }
 }
