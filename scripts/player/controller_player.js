@@ -32,7 +32,7 @@ var app=angular.module('cricket')
         map.addListener('clickMapObject',function(event){
             selectRegion(event.mapObject.id);
             $cookies.put('country',event.mapObject.id)
-           $state.reload();
+           $state.go('player',{},{reload:true});
         });
         
 
@@ -40,7 +40,7 @@ var app=angular.module('cricket')
 
     .controller('infoPlayer',['$scope','$stateParams','$cookies',function($scope,$stateParams,$cookies){
        
-         $scope.playerName='Inzamam';
+         $scope.player=$stateParams.player;
        
         
     }])

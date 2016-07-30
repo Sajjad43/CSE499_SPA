@@ -1,7 +1,7 @@
 <div class="row" ng-controller='playerList'>
-     <div class='col-sm-10'>
+     <div class='col-sm-10' id='tb'>
         
-         <table class="table table-inverse">
+         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>#</th>
@@ -13,12 +13,12 @@
              
             </thead>
             <tbody>
-                <tr ng-repeat="x in [3,4,5,6,7,8,78,56,34,62]" ui-sref="home.player({country:country,player:x})">
-                    <th >{{$index}}</th>
+                <tr ng-repeat="x in [3,4,5,6,7,8,78,56,34,62]" ui-sref=".playerList({player:x})">
+                    <th>{{$index}}</th>
                     <td>Inzamam</td>
                     <td>Batsman</td>
+                    <td>Bat</td>
                 </tr>     
-             
              
             </tbody> 
          

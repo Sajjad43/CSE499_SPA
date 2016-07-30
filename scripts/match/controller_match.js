@@ -40,22 +40,24 @@ var app=angular.module('cricket')
          
          
      }])
+    .controller('matchList',function($scope){
+        
+    })
 
     .controller('graph_info',['$scope','match','$stateParams',function($scope,match,$stateParams){
             $scope.team=match.team1;
-            console.log('eke'+$stateParams.id)
-            if($stateParams.id==1||$stateParams.id==undefined){
-                      $scope.team=match.team1;
+           
+            if($stateParams.id==match.team1||$stateParams.id==undefined){
+                $scope.team=match.team1;
+                match.selectedTeam=match.team1;
             }
-             else{
-                  $scope.team=match.team2;
+            else{
+                $scope.team=match.team2;
             }
       }])
 
 
     .controller('match_info',['$scope','match',function($scope,match){
-       
-        
         $scope.team1=match.team1;$scope.team2=match.team2;
     }])
     

@@ -12,15 +12,33 @@ angular.module('cricket')
                     templateUrl:'views/player.html',
                 },
                 'info@player':{
-                    templateUrl:'views/player/info.html',
-                    controller:'infoPlayer'
+                   template:'<center><h3>Select a player from the list</h3></center>'
                 },
                 'graph@player':{
-                    templateUrl:'views/player/player_bat_1.html',
-                    controller:'player_bat_1'
+                    template:"<center><h4>No records</h4></center>"
+                },
+                'playerList@player':{
+                    templateUrl:'views/player/playerList.html'
                 }
             }  
     })
+    
+    
+    .state('player.playerList',{
+        url:'/:player',
+        views:{
+             'info@player':{
+                    templateUrl:'views/player/info.html',
+                    controller:'infoPlayer'
+                },
+             'graph@player':{
+                    templateUrl:'views/player/player_bat_1.html',
+                    controller:'player_bat_1'
+                }
+        }
+    })
+    
+    
     .state('player.player_bat_1',{
            url:'/1',
             views:{
