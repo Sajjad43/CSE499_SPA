@@ -32,17 +32,10 @@ body {
   color: #e7e7e7;
   background-color: transparent;
 }
-tr {
-width: 100%;
-display: inline-table;
-}
 
-table{
- 
-}
-tbody{
-  overflow-y: scroll;
-  height: 200px;
-  width: 100%;
-  
+#tb{
+
+		width: 90%;
+		height: 40%;
+		overflow: scroll;
 }
