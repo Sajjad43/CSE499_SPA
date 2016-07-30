@@ -2,9 +2,6 @@ angular.module('cricket')
 .config(function($stateProvider,$urlRouterProvider){
     
     $stateProvider
-     
-    
-    
      .state('player',{
            url:'/player',
             views:{
@@ -66,9 +63,6 @@ angular.module('cricket')
                 }
             }  
     })
-    
-   
-    
     
 })
      

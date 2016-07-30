@@ -1,8 +1,15 @@
 var app=angular.module('cricket')
 
-     .controller('mapMatch',['$scope',function($scope){
-
-            AmCharts.makeChart( "mapMatch", {
+     .controller('mapMatch',['$scope','match','$cookies','$state','ISO3166',function($scope,match,$cookies,$state,ISO3166){
+            
+            if(match.team1==''){
+                match.team1=ISO3166.getCountryName($cookies.get('country'));
+                match.team2="";
+            }    
+        
+            $scope.listTeam=match.listTeam;
+         
+            var map=AmCharts.makeChart( "mapMatch", {
                
                     "type": "map",
                     "dataProvider": {
@@ -10,18 +17,47 @@ var app=angular.module('cricket')
                       "getAreasFromMap": true
                     },
                     "areasSettings": {
-                        "autoZoom": true,
+                        
                         "selectedColor": "#CC0000"
                     },
                     
                     "smallMap": {}
                   });
          
+          map.dataProvider.areas=[
+              {'id':ISO3166.getCountryCode(match.team1),'showAsSelected':true},
+              {'id':ISO3166.getCountryCode(match.team2),'showAsSelected':true}
+              
+          ];
+         map.validateData();
          
-           
-    
+          $scope.submit=function(A,B){
+                match.team1=A;
+                match.team2=B;
+              $state.reload('match');
+              
+         }
+         
+         
+     }])
 
-        }])
+    .controller('graph_info',['$scope','match','$stateParams',function($scope,match,$stateParams){
+            $scope.team=match.team1;
+            console.log('eke'+$stateParams.id)
+            if($stateParams.id==1||$stateParams.id==undefined){
+                      $scope.team=match.team1;
+            }
+             else{
+                  $scope.team=match.team2;
+            }
+      }])
+
+
+    .controller('match_info',['$scope','match',function($scope,match){
+       
+        
+        $scope.team1=match.team1;$scope.team2=match.team2;
+    }])
     
     
      

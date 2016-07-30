@@ -1,9 +1,9 @@
-
 <div class="container-fluid" ng-controller="mapMatch" >
          <div class="row">
                  <div class="col-sm-4" >
                      <center>
-                          <h3>SELECT A TEAM</h3>
+                          <div><button class='btn btn-info' data-toggle='modal' data-target='#modal'> Select team</button></div>
+                         <p style="height:5px;"></p>
                           <div id="mapMatch" class="makingRelative" style=" width:90%;height:300px;"></div>
                      </center>
                  </div>
@@ -11,30 +11,58 @@
                  <div class="col-sm-8">
                          <div ui-view='info'></div>
                          <div class="row">
-                                <div class="col-sm-12">
-                                    <ul class="nav nav-tabs">
-                                        <li  role="presentation"><a>Pakistan</a></li>
-                                         <li  role="presentation"><a>India</a></li>
-                                     </ul>
-                                 </div>
-                                <div class="col-sm-10"  ui-view='graph'></div>
-
+                                <div ui-view='graph-info'></div>
+                                <div class="col-sm-11"  ui-view='graph'></div>
                          </div>
                         <center>
                             <ul class="pagination">
-                                <li><a ui-sref="" ui-sref-active='active'>1</a></li>
-                                     <li ><a ui-sref="" ui-sref-active='active'>1</a></li>
-                                     <li><a ui-sref="" ui-sref-active='active'>2</a></li>
-                                     <li><a ui-sref="" ui-sref-active='active'>3</a></li>
-                                     <li ><a ui-sref="" ui-sref-active='active'>4</a></li>
-                                     <li><a ui-sref="" ui-sref-active='active'>5</a></li>
-                                     <li><a ui-sref="" ui-sref-active='active'>6</a></li>       
+                               
+                                 <li ><a ui-sref="" ui-sref-active='active'>1</a></li>
+                                 <li><a ui-sref="" ui-sref-active='active'>2</a></li>
+                                 <li><a ui-sref="" ui-sref-active='active'>3</a></li>
+                                 <li ><a ui-sref="" ui-sref-active='active'>4</a></li>
+                                 <li><a ui-sref="" ui-sref-active='active'>5</a></li>
+                                 <li><a ui-sref="" ui-sref-active='active'>6</a></li>      
                              </ul>
-
                         </center>
                 </div>
         </div>
-</div>
     
+    <div class="modal" data-backdrop=''  data-toggle="modal"  role='dialog' id="modal">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Select the teams</h4>
+
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                                 <label for="team1">Team1</label>
+                                <select class="form-control" ng-model='A' ng-options='o for o in listTeam'></select> 
+                        </div>   
+                         <div class='form-group'>
+                              <label for="team2">Team2</label>
+                                <select  class="form-control" ng-model='B' ng-options='listTeam for listTeam in listTeam'></select>    
+                        </div>    
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                     <button type="submit" class="btn btn-primary" ng-click='submit(A,B)' >Submit</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+   
+</div>
+
        
     
