@@ -9,97 +9,132 @@ angular.module('cricket')
             'header':{
                     templateUrl:'views/header.html'
                 },
-            'content':{
+            'content@':{
                 templateUrl:'views/match.html',
                 controller:'mapMatch'
                 },
+            'map@match':{
+                templateUrl:'views/match/map.html',
+                controller:'mapMatch'
+            },  
             'info@match':{
                 templateUrl:'views/match/match_info.html',
                 controller:'match_info'
                 
             },
-            'graph@match':{
-                templateUrl:'views/match/match_bat_1.html',
-                controller:'match_bat_1'
-            },
-            'graph-info@match':{
-                templateUrl:'views/match/graph_title.html',
-                controller:'graph_info'
+            'graphBlock@match':{
+                template:'<center><h3>Select a match</h3></center>'
             }
            
         }
     })
+    
+    .state('match.selectMatch',{
+        
+        views:{ 
+            
+            'map@match':{
+                templateUrl:'views/match/map.html',
+                controller:'mapMatch'
+            },  
+            'info@match':{
+                template:"<center><h3>Select a match</h3></center>"    
+
+                },
+            'matchList@match':{
+                templateUrl:'views/match/match_list.html'
+            }    
+        }
+    })
+      .state('match.selectMatch.matchList',{
+        url:'/:match',
+        views:{ 
+             
+            'info@match':{
+                templateUrl:'views/match/match_info.html',
+                controller:'match_info'
+            },
+            'graphBlock@match':{
+                templateUrl:'views/match/graph.html',
+                controller:'match_info'
+            },
+            'graph@match.selectMatch.matchList':{
+                templateUrl:'views/match/match_bat_1.html',
+                controller:'match_bat_1'
+            }
+            
+            
+             
+        }
+    })
   
     
-    .state('match.teamTab',{
+    .state('match.selectMatch.matchList.teamTab',{
         url:'/:id',
        
         views:{
             
-            'graph@match':{
+            'graph@match.selectMatch.matchList':{
                 templateUrl:'views/match/match_bat_2.html',
                 controller:'match_bat_2'
             },
-            'graph-info@match':{
-                templateUrl:'views/match/graph_title.html',
-                controller:'graph_info'
-            }
+            
         }
     })
-    /*---*/
-    .state('match.bat_1',{
-        url:'/:id',
+   
+    .state('match.selectMatch.matchList.bat_1',{
+        url:'/:team/:id',
        
         views:{
             
-            'graph@match':{
+            'graph@match.selectMatch.matchList':{
                 templateUrl:'views/match/match_bat_1.html',
                 controller:'match_bat_1'
             },
             
         }
     })
-    .state('match.bat_2',{
-        url:'/:id',
+    .state('match.selectMatch.matchList.bat_2',{
+        url:'/:team/:id',
         views:{
-            'graph@match':{
+            'graph@match.selectMatch.matchList':{
                 templateUrl:'views/match/match_bat_2.html',
                 controller:'match_bat_2'
             },
         }
     })
-    .state('match.bat_3',{
-        url:'/:id',
+    .state('match.selectMatch.matchList.bat_3',{
+        url:'/:team/:id',
         views:{
-            'graph@match':{
+            'graph@match.selectMatch.matchList':{
                 templateUrl:'views/match/match_bat_3.html',
                 controller:'match_bat_3'
             }
         }
     })
-    .state('match.bowl_1',{
-        url:'/:id',
+    .state('match.selectMatch.matchList.bowl_1',{
+        url:'/:team/:id',
         views:{
-            'graph@match':{
+            'graph@match.selectMatch.matchList':{
                 templateUrl:'views/match/match_bowl_1.html',
                 controller:'match_bowl_1'
             }
         }
     })
-    .state('match.bowl_2',{
-        url:'/:id',
+    .state('match.selectMatch.matchList.bowl_2',{
+        url:'/:team/:id',
         views:{
-            'graph@match':{
+            'graph@match.selectMatch.matchList':{
                 templateUrl:'views/match/match_bowl_2.html',
                 controller:'match_bowl_2'
             }
           
         }
     })
-    .state('match.bowl_3',{
-        url:'/:id',
+    .state('match.selectMatch.matchList.bowl_3',{
+        url:'/:team/:id',
         views:{
-            'graph@match':{
+            'graph@match.selectMatch.matchList':{
                 templateUrl:'views/match/match_bowl_3.html',
                 controller:'match_bowl_3'
             }

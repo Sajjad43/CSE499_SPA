@@ -31,7 +31,7 @@ var myApp = angular.module('cricket')
                 map.validateData();
                 
                 $cookies.put('country',event.mapObject.id);    
-                $state.go('team');
+                $state.transitionTo('team');
             }
             
          });

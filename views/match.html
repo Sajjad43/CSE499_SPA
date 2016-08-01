@@ -3,32 +3,25 @@
                  <div class="col-sm-4" >
                      <center>
                           <div><button class='btn btn-info' data-toggle='modal' data-target='#modal'> Select team</button></div>
-                         <p style="height:5px;"></p>
-                          <div id="mapMatch" class="makingRelative" style=" width:90%;height:300px;"></div>
+                         <div ui-view='map'></div>
                      </center>
+                     <div ui-view='matchList'></div>
+                     
+                     
+                     
                  </div>
 
                  <div class="col-sm-8">
                          <div ui-view='info'></div>
                          <div class="row">
                                 <div ui-view='graph-info'></div>
-                                <div class="col-sm-11"  ui-view='graph'></div>
+                                <div class="col-sm-11"  ui-view='graphBlock'></div>
                          </div>
-                        <center>
-                            <ul class="pagination">
-                               
-                                 <li  ui-sref-active='active'><a ui-sref=".bat_1">1</a></li>
-                                 <li ui-sref-active='active'> <a ui-sref=".bat_2" >2</a></li>
-                                 <li  ui-sref-active='active'><a ui-sref=".bat_3">3</a></li>
-                                 <li ui-sref-active='active'><a ui-sref=".bowl_1" >4</a></li>
-                                 <li ui-sref-active='active'><a ui-sref=".bowl_2" >5</a></li>
-                                 <li ui-sref-active='active'><a ui-sref=".bowl_3" >6</a></li>      
-                             </ul>
-                        </center>
+                        
                 </div>
         </div>
     
-    <div class="modal" data-backdrop=''  data-toggle="modal"  role='dialog' id="modal">
+    <div class="modal"  data-toggle="modal"  role='dialog' id="modal">
 
         <div class="modal-dialog" role="document">
 
@@ -52,7 +45,7 @@
 
                 </div>
                 <div class="modal-footer">
-                     <button type="submit" class="btn btn-primary" ng-click='submit(A,B)' >Submit</button>
+                     <button type="submit" data-dismiss='modal' class="btn btn-primary" ng-click='submit(A,B)' >Submit</button>
                 </div>
 
             </div>

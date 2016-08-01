@@ -34,7 +34,7 @@ var app=angular.module('cricket')
             selectRegion(event.mapObject.id);
             console.log('team map -'+$state.is('team'));
             $cookies.put('country',event.mapObject.id);
-            $state.reload('team');
+            $state.transitionTo('team',{},{reload:true});
         })
         
         

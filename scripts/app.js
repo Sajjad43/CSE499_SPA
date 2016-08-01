@@ -32,11 +32,14 @@ angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies',"high
                     templateUrl:'views/team/info.html',
                     controller:'info'
                 },
-                'graph@team':{
-                    templateUrl:'views/team/team_bat_1.html'
+                'graphBlock@team':{
+                    templateUrl:'views/team/graph.html'
                     //controller:'team_bat_1'
+                },
+                'graph@team':{
+                    templateUrl:'views/team/team_bat_1.html',
+                    controller:'team_bat_1'
                 }
-                
             }
         
         })
@@ -44,10 +47,7 @@ angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies',"high
        .state('team.team_bat_1',{
             url:"/1",
             views:{
-                'info@team':{
-                        templateUrl:'views/team/info.html',
-                        controller:'info'
-                    },
+                
                 'graph@team':{
                         templateUrl:'views/team/team_bat_1.html',
                         controller:'team_bat_1'
@@ -58,10 +58,7 @@ angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies',"high
             
             url:'/2',
             views:{
-                'info@team':{
-                        templateUrl:'views/team/info.html',
-                        controller:'info'
-                    },
+                
                 'graph@team':{
                         templateUrl:'views/team/team_bat_2.html',
                         controller:'team_bat_2'
@@ -72,10 +69,7 @@ angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies',"high
             
             url:'/3',
             views:{
-                'info@team':{
-                        templateUrl:'views/team/info.html',
-                        controller:'info'
-                    },
+                
                 'graph@team':{
                         templateUrl:'views/team/team_bat_3.html',
                         controller:'team_bat_3'
@@ -83,16 +77,11 @@ angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies',"high
             }
         })
      .state('team.team_bowl_1',{
-           
             url:'/4',
             views:{
-                'info@team':{
-                        templateUrl:'views/team/info.html',
-                        controller:'info'
-                    },
                 'graph@team':{
-                        templateUrl:'views/team/team_bowl_1.html',
-                        controller:'team_bowl_1'
+                    templateUrl:'views/team/team_bowl_1.html',
+                    controller:'team_bowl_1'
                  }
             }    
         })

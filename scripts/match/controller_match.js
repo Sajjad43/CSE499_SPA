@@ -34,7 +34,8 @@ var app=angular.module('cricket')
           $scope.submit=function(A,B){
                 match.team1=A;
                 match.team2=B;
-              $state.reload('match');
+             $state.transitionTo('match.selectMatch');
+              
               
          }
          
@@ -59,6 +60,7 @@ var app=angular.module('cricket')
 
     .controller('match_info',['$scope','match',function($scope,match){
         $scope.team1=match.team1;$scope.team2=match.team2;
+        $scope.selectTeam=match.team1;
     }])
     
     

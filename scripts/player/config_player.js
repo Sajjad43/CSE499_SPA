@@ -8,13 +8,13 @@ angular.module('cricket')
                 'header':{
                     templateUrl:'views/header.html',
                 },
-                'content':{
+                'content@':{
                     templateUrl:'views/player.html',
                 },
                 'info@player':{
                    template:'<center><h3>Select a player from the list</h3></center>'
                 },
-                'graph@player':{
+                'graphBlock@player':{
                     template:"<center><h4>No records</h4></center>"
                 },
                 'playerList@player':{
@@ -31,51 +31,41 @@ angular.module('cricket')
                     templateUrl:'views/player/info.html',
                     controller:'infoPlayer'
                 },
-             'graph@player':{
+             'graphBlock@player':{
+                    templateUrl:'views/player/graph.html'
+                },
+             'graph@player.playerList':{
                     templateUrl:'views/player/player_bat_1.html',
                     controller:'player_bat_1'
-                }
+            }
         }
     })
     
     
-    .state('player.player_bat_1',{
+    .state('player.playerList.player_bat_1',{
            url:'/1',
             views:{
-               
-                'info@player':{
-                    templateUrl:'views/player/info.html',
-                    controller:'infoPlayer'
-                },
-                'graph@player':{
+              
+                'graph@player.playerList':{
                     templateUrl:'views/player/player_bat_1.html',
                     controller:'player_bat_1'
                 }
             }  
     })
-    .state('player.player_bat_2',{
+    .state('player.playerList.player_bat_2',{
            url:'/2',
             views:{
                
-                'info@player':{
-                    templateUrl:'views/player/info.html',
-                    controller:'infoPlayer'
-                },
-                'graph@player':{
+                'graph@player.playerList':{
                     templateUrl:'views/player/player_bat_2.html',
                     controller:'player_bat_2'
                 }
             }  
     })
-    .state('player.player_bowl_1',{
+    .state('player.playerList.player_bowl_1',{
            url:'/3',
             views:{
-               
-                'info@player':{
-                    templateUrl:'views/player/info.html',
-                    controller:'infoPlayer'
-                },
-                'graph@player':{
+                'graph@player.playerList':{
                     templateUrl:'views/player/player_bowl_1.html',
                     controller:'player_bowl_1'
                 }

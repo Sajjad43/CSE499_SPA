@@ -1,0 +1,28 @@
+ <div class="col-sm-12">
+        <ul class="nav nav-tabs">
+              <li  role="presentation" ui-sref-active='active' ><a class="active" ui-sref=".teamTab({id:team1})"  ng-click='selectTeam=team1'>{{team1}}</a></li>
+              <li  role="presentation" ui-sref-active='active'><a ui-sref=".teamTab({id:team2})" ng-click='selectTeam=team2'>{{team2}}</a></li>
+        </ul>
+</div>
+<center><h3>{{selectTeam}}</h3></center>
+<center>
+        <button type="button" class=" btn btn-default btn-info">Batting</button>
+        <button type="button" class=" btn btn-default btn-success">Bowling</button>
+</center>
+
+    
+
+    <div ui-view='graph'></div>
+
+
+<center>
+    <ul class="pagination">
+                               
+        <li  ui-sref-active='active'><a ui-sref=".bat_1({team:selectTeam,id:1})">1</a></li>
+        <li  ui-sref-active='active'><a ui-sref=".bat_2({team:selectTeam,id:2})" >2</a></li>
+        <li  ui-sref-active='active'><a ui-sref=".bat_3({team:selectTeam,id:3})">3</a></li>
+        <li  ui-sref-active='active'><a ui-sref=".bowl_1({team:selectTeam,id:4})" >4</a></li>
+        <li  ui-sref-active='active'><a ui-sref=".bowl_2({team:selectTeam,id:5})" >5</a></li>
+        <li  ui-sref-active='active'><a ui-sref=".bowl_3({team:selectTeam,id:6})" >6</a></li>      
+    </ul>
+</center>
