@@ -4,9 +4,9 @@ var myApp = angular.module('cricket')
 
    
       
-        .controller('home',['$scope','$state','$cookies',function($scope,$state,$cookies){
-
-        var map = AmCharts.makeChart( "mapdiv", {
+        .controller('home',['$scope','$state','$cookies','home','ISO3166',function($scope,$state,$cookies,home,ISO3166){
+            
+            var map = AmCharts.makeChart( "mapdiv", {
                  
                     "type": "map",
              
@@ -17,12 +17,21 @@ var myApp = angular.module('cricket')
                    
                     "areasSettings": {
                         "selectedColor": "#CC0000",
-                        "selectable":true
+                        
                     },
                
                     "smallMap": {},
                     
                   });
+            var x=[];
+            
+            for(var i=0;i<home.listCountry().length;i++){
+                console.log(ISO3166.getCountryCode(home.listCountry()[i]));
+                x[i]={'id':ISO3166.getCountryCode(home.listCountry()[i]),"selectable":true,'showAsSelected':"#CC0000"};
+            }
+            map.dataProvider.areas=x;
+            map.validateData();
+            
             
          map.addListener('clickMapObject',function(event){
            

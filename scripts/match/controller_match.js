@@ -2,12 +2,19 @@ var app=angular.module('cricket')
 
      .controller('mapMatch',['$scope','match','$cookies','$state','ISO3166',function($scope,match,$cookies,$state,ISO3166){
             
-            if(match.team1==''){
+         $scope.A='';$scope.B='';  
+         if(match.team1==''){
                 match.team1=ISO3166.getCountryName($cookies.get('country'));
+                console.log(match.team1);
                 match.team2="";
+                $scope.A=match.team1;
+                $scope.B=match.team2;
+             
+             
             }    
         
             $scope.listTeam=match.listTeam;
+        
          
             var map=AmCharts.makeChart( "mapMatch", {
                
@@ -31,9 +38,9 @@ var app=angular.module('cricket')
           ];
          map.validateData();
          
-          $scope.submit=function(A,B){
-                match.team1=A;
-                match.team2=B;
+          $scope.submit=function(){
+                match.team1=$scope.A;
+                match.team2=$scope.B;
              $state.transitionTo('match.selectMatch');
               
               
@@ -41,9 +48,9 @@ var app=angular.module('cricket')
          
          
      }])
-    .controller('matchList',function($scope){
-        
-    })
+    .controller('matchList',['$scope','match',function($scope,match){
+            $scope.listMatch=match.listMatch;
+    }])
 
     .controller('graph_info',['$scope','match','$stateParams',function($scope,match,$stateParams){
             $scope.team=match.team1;
@@ -58,20 +65,31 @@ var app=angular.module('cricket')
       }])
 
 
-    .controller('match_info',['$scope','match',function($scope,match){
+    .controller('match_info',['$scope','match','$stateParams',function($scope,match,stateParams){
         $scope.team1=match.team1;$scope.team2=match.team2;
-        $scope.selectTeam=match.team1;
+        if(match.selectedTeam=='')
+            $scope.selectTeam=match.team1;
+        else
+            $scope.selectTeam=match.selectedTeam;
+        
+        $scope.changeTeam=function(x){
+            match.selectedTeam=x;
+        }
+        
+        
+        $scope.date=stateParams.match;
+        
     }])
     
     
      
      .controller('match_bowl_3',['$scope',function($scope){
        
-         $scope.chartOptions={
+          Highcharts.chart('match_bowl_3',{
                
-               options:{
+             
                 chart:{}
-               },
+               ,
                 title: {
                       text: 'Combination chart'
                   },
@@ -135,16 +153,16 @@ var app=angular.module('cricket')
                     }
                 }]
 
-        };
+        });
         
        
     }])
 
     .controller('match_bowl_2',['$scope',function($scope){
 
-             $scope.chartOptions={
+         Highcharts.chart('match_bowl_2',{
 
-                    options:{
+                 
                             chart:{
                                  type:'heatmap',
                                   marginTop: 40,
@@ -168,7 +186,7 @@ var app=angular.module('cricket')
                                 symbolHeight: 280
                             },
                           
-                      },
+                      
                       title:{
                          text:"Batsman VS Bowler"
                       },
@@ -206,7 +224,7 @@ var app=angular.module('cricket')
                        }
                     }]
 
-            };
+            });
 
 
     }])
@@ -229,15 +247,15 @@ var app=angular.module('cricket')
                     lineColor: Highcharts.getOptions().colors[7]
                 };
                 
-        $scope.chartOptions={
+       
 
             
+         Highcharts.chart('match_bat_3',{
             
-            options:{
-                chart:{
+            chart:{
             
                 }
-            },
+            ,
             title:{
               text:"Run comparison analysis"
             },
@@ -287,19 +305,19 @@ var app=angular.module('cricket')
 
                 }]
 
-        };
+        });
        
     }])
 
      .controller('match_bowl_1',['$scope',function($scope){
   
-          $scope.chartOptions={
+          Highcharts.chart('match_bowl_1',{
                     
-                    options:{
+                  
                          chart:{
                              type:'bar'
                          }
-                    },
+                    ,
 
                     title:{
                         text:'Run concede by each bowler over the 10overs interval'
@@ -340,19 +358,20 @@ var app=angular.module('cricket')
                             data:[0,4,4,15,41]
 
                         }]
-                };
+                });
         
      }])
 
-    .controller('match_bat_2',['$scope',function($scope){
+    .controller('match_bat_2',['$scope','$state',function($scope,$state){
+        console.log($state.$current.name);
         
-            $scope.chartOptions={
+           Highcharts.chart('match_bat_2',{
                     
-                options:{
-                        chart:{
-                            type:'column',
+               
+                chart:{
+                            type:'column'
                         }
-                    },
+                    ,
                 title:{
                         text:'Partnership Analysis of the team'
                     },
@@ -372,9 +391,9 @@ var app=angular.module('cricket')
 
                  plotOptions: {
                         series: {
-                            stacking: 'normal'
+                            
                         },column:{
-                            pointPadding:0.5
+                         
                         }
                     },
 
@@ -383,7 +402,7 @@ var app=angular.module('cricket')
                             data:[{x:0,y:23},{x:2,y:45}]
                         },{
                              name:"Inzamam",
-                             data:[{x:2,y:25},{x:0,y:47},{x:4,y:23}]
+                             data:[{x:0,y:47},{x:2,y:25},{x:4,y:23}]
                         },{
                              name:"Shoaib khan",
                              data:[0,61,0,4]
@@ -394,20 +413,23 @@ var app=angular.module('cricket')
                             name:"Sajjad",
                             data:[{x:9,y:35}]
                      }]
-            };
+            });
      
     }])
 
     .controller('match_bat_1',function($scope){
         
-        $scope.chartOptions={
+        
+        
+        
+         Highcharts.chart('match_bat_1',{
 
-                options:{
+                
                     chart:{
                         type:'bar'
                     
                     }
-                },
+                ,
                 title:{
                         text:'Run contribution of each batsman'
                     },
@@ -428,10 +450,10 @@ var app=angular.module('cricket')
                    
                  plotOptions: {
                         column: {
-                            stacking: 'normal'
+                           
                         }
                     },
-                loading:false,
+                
 				series: [{
                             name:"Yasir",
                             data:[{x:0,y:6},{x:4,y:7}]
@@ -454,7 +476,7 @@ var app=angular.module('cricket')
                               name:"Afridi Anwar",
                             data:[0,0,19]
                           }]
-				};
+				});
             
       });
 

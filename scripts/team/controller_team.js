@@ -1,7 +1,7 @@
 var app=angular.module('cricket')
 
    
-    .controller('mapTeam',['$scope','$stateParams','$state','$cookies',function($scope,$stateParams,$state,$cookies){
+    .controller('mapTeam',['$scope','$stateParams','$state','$cookies','home','ISO3166',function($scope,$stateParams,$state,$cookies,home,ISO3166){
        
        var country=$cookies.get('country');
         var map=AmCharts.makeChart( "mapTeam",{
@@ -15,19 +15,30 @@ var app=angular.module('cricket')
                     "areasSettings": {
                       
                        "selectedColor": "#CC0000",
-                        "selectable":true
+                       
                     },
                     
                     "smallMap": {}
                   });
-       
-       
-        var selectRegion=function(id){
-            map.dataProvider.areas=[{'id':id,'showAsSelected':true}];
+         
+        var selectRegion=function(id,select){
+            if(select==false)
+                map.dataProvider.areas.push({'id':id,"selectable":true,'showAsSelected':true});
+            else
+                 map.dataProvider.areas.push({'id':id,'color':'#00CC00'});
+            
             map.validateData();
         }
+            
+            for(var i=0;i<home.listCountry().length;i++){
+                
+                selectRegion(ISO3166.getCountryCode(home.listCountry()[i]),false);
+            }
+            selectRegion(country,true);
+       
         
-        selectRegion(country);
+        
+        
                 
         
         map.addListener('clickMapObject',function(event){
@@ -264,14 +275,17 @@ var app=angular.module('cricket')
         
         Highcharts.chart('team_bat_2',{
            chart: {
-               type: 'bar'
+               type: 'column'
             },
             title: {
                 text: 'Batting Partnership Number'
             },
 
             xAxis: {
-                categories: ['1', '2', '3'],
+                type:'category',
+                min:1,
+                max:10,
+               
                 title: {
                     text: 'Partnership',
                     style:{

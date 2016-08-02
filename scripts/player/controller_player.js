@@ -2,7 +2,7 @@ var app=angular.module('cricket')
 
   
 
-    .controller('mapPlayer',['$scope','$state','$stateParams','$cookies',function($scope,$state,$stateParams,$cookies){
+    .controller('mapPlayer',['$scope','$state','$stateParams','$cookies','home','ISO3166',function($scope,$state,$stateParams,$cookies,home,ISO3166){
         var country=$cookies.get('country');
       
         var map=AmCharts.makeChart( "mapPlayer", {
@@ -22,17 +22,24 @@ var app=angular.module('cricket')
                     "smallMap": {}
                   } );
         
-        var selectRegion=function(id){
-            map.dataProvider.areas=[{'id':id,"showAsSelected":true}];
+        var selectRegion=function(id,select){
+            if(select==false)
+                map.dataProvider.areas.push({'id':id,'showAsSelected':true});
+            else
+                 map.dataProvider.areas.push({'id':id,'color':'#00CC00'});
+            
             map.validateData();
         }
-        
-        selectRegion(country);
+            
+        for(var i=0;i<home.listCountry().length;i++){
+                selectRegion(ISO3166.getCountryCode(home.listCountry()[i]),false);
+        }
+        selectRegion(country,true);
         
         map.addListener('clickMapObject',function(event){
             selectRegion(event.mapObject.id);
             $cookies.put('country',event.mapObject.id)
-           $state.go('player',{},{reload:true});
+            $state.go('player',{},{reload:true});
         });
         
 
@@ -45,8 +52,9 @@ var app=angular.module('cricket')
         
     }])
 
-    .controller('playerList',['$scope','$stateParams',function($scope,$stateParams){
+    .controller('playerList',['$scope','$stateParams','player',function($scope,$stateParams,player){
        
+        $scope.playerList=player.playerList;
          
         
     }])

@@ -13,11 +13,11 @@
              
             </thead>
             <tbody>
-                <tr ng-repeat="x in [3,4,5,6,7,8,78,56,34,62]" ui-sref=".playerList({player:x})">
+                <tr ng-repeat="x in playerList" ui-sref=".playerList({player:x.name})">
                     <th>{{$index}}</th>
-                    <td>Inzamam</td>
-                    <td>Batsman</td>
-                    <td>Bat</td>
+                    <td>{{x.name}}</td>
+                    <td>{{x.country}}</td>
+                    <td>{{x.type}}</td>
                 </tr>     
              
             </tbody> 
