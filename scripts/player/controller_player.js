@@ -1,14 +1,14 @@
 var app=angular.module('cricket')
 
-  
-
     .controller('mapPlayer',['$scope','$state','$stateParams','$cookies','home','ISO3166',function($scope,$state,$stateParams,$cookies,home,ISO3166){
+       //get the country id
         var country=$cookies.get('country');
       
+        // set the map
         var map=AmCharts.makeChart( "mapPlayer", {
 
                     "type": "map",
-
+                   
                     "dataProvider": {
                       "map": "worldLow",
                       "getAreasFromMap": true
@@ -16,30 +16,35 @@ var app=angular.module('cricket')
                     "areasSettings": {
                       "autoZoom": true,
                       "selectedColor": "#CC0000",
-                        selectable:true
+                       "selectable":true
                     },
 
                     "smallMap": {}
-                  } );
+                  });
         
+        //highlighting the map
         var selectRegion=function(id,select){
+            
             if(select==false)
-                map.dataProvider.areas.push({'id':id,'showAsSelected':true});
+                map.dataProvider.areas.push({'id':id,
+                                        'showAsSelected':true});
             else
-                 map.dataProvider.areas.push({'id':id,'color':'#00CC00'});
+                map.dataProvider.areas.push({'id':id,
+                                             'color':'#00CC00'});
             
             map.validateData();
         }
-            
+        //  highlight the cricketing nations  
         for(var i=0;i<home.listCountry().length;i++){
                 selectRegion(ISO3166.getCountryCode(home.listCountry()[i]),false);
         }
+        //the selected nation
         selectRegion(country,true);
         
         map.addListener('clickMapObject',function(event){
             selectRegion(event.mapObject.id);
-            $cookies.put('country',event.mapObject.id)
-            $state.go('player',{},{reload:true});
+            $cookies.put('country',event.mapObject.id);
+            $state.go('player',{},{reload:true});//reload
         });
         
 
@@ -49,7 +54,6 @@ var app=angular.module('cricket')
        
          $scope.player=$stateParams.player;
        
-        
     }])
 
     .controller('playerList',['$scope','$stateParams','player',function($scope,$stateParams,player){
@@ -91,12 +95,12 @@ var app=angular.module('cricket')
                 title:{
                     text:'Batting Average',
                     style:{
-                     color:Highcharts.getOptions().colors[8]
+                        color:Highcharts.getOptions().colors[8]
                     }
-                } ,
+                },
                 labels:{
                     style:{
-                     color:Highcharts.getOptions().colors[8]
+                        color:Highcharts.getOptions().colors[8]
                     }
                 },
                 opposite:true
@@ -127,7 +131,7 @@ var app=angular.module('cricket')
                 }
             },
             yAxis:[{
-                      labels:{
+                    labels:{
                         style:{
                           color:Highcharts.getOptions().colors[7]
                         }
@@ -141,14 +145,14 @@ var app=angular.module('cricket')
                 },{
                     labels:{
                       style:{
-                         color: Highcharts.getOptions().colors[3]
+                         color:Highcharts.getOptions().colors[3]
                       }
                     },
                     title:{
                         text:'Over',
                         style:{
-                              color:  Highcharts.getOptions().colors[3]
-                              }
+                            color:Highcharts.getOptions().colors[3]
+                        }
                     },
                     opposite:true
                 },{
@@ -162,7 +166,7 @@ var app=angular.module('cricket')
                         style:{
                            color:Highcharts.getOptions().colors[0]
                         }
-                    } ,
+                    },
                     opposite:true
                 }
             ],
@@ -179,7 +183,7 @@ var app=angular.module('cricket')
                 name:'Over',
                 data:[4,5,7,4,10],
                 yAxis:1,
-                color:   Highcharts.getOptions().colors[3]
+                color:Highcharts.getOptions().colors[3]
 
             },{
                 name:'wicket',
@@ -190,7 +194,6 @@ var app=angular.module('cricket')
     }])
 
     .controller('player_bat_1',['$scope',function($scope){
-
 
         Highcharts.chart('player_bat_1',{
             title:{
@@ -206,7 +209,7 @@ var app=angular.module('cricket')
                 {
                    labels:{
                        style:{
-                        color:Highcharts.getOptions().colors[1]
+                        color: Highcharts.getOptions().colors[1]
                        }
                    },
                    title:{

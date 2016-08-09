@@ -2,8 +2,9 @@ var app=angular.module('cricket')
 
    
     .controller('mapTeam',['$scope','$stateParams','$state','$cookies','home','ISO3166',function($scope,$stateParams,$state,$cookies,home,ISO3166){
-       
+       //get the country id from cookies
        var country=$cookies.get('country');
+        //map
         var map=AmCharts.makeChart( "mapTeam",{
                
                     "type": "map",
@@ -21,31 +22,31 @@ var app=angular.module('cricket')
                     "smallMap": {}
                   });
          
-        var selectRegion=function(id,select){
-            if(select==false)
-                map.dataProvider.areas.push({'id':id,"selectable":true,'showAsSelected':true});
-            else
-                 map.dataProvider.areas.push({'id':id,'color':'#00CC00'});
+            //code for highlighting
+            var selectRegion=function(id,select){
+                if(select==false)
+                    map.dataProvider.areas.push({'id':id,"selectable":true,
+                                                 'showAsSelected':true});
+                else
+                     map.dataProvider.areas.push({'id':id,'color':'#00CC00'});
+
+                map.validateData();
+            }
             
-            map.validateData();
-        }
-            
+            //highlight the cricketing nations
             for(var i=0;i<home.listCountry().length;i++){
                 
                 selectRegion(ISO3166.getCountryCode(home.listCountry()[i]),false);
             }
+            //highlight the country from cookies
             selectRegion(country,true);
        
-        
-        
-        
-                
-        
+        //map is clicked
         map.addListener('clickMapObject',function(event){
             selectRegion(event.mapObject.id);
             console.log('team map -'+$state.is('team'));
             $cookies.put('country',event.mapObject.id);
-            $state.transitionTo('team',{},{reload:true});
+            $state.transitionTo('team',{},{reload:true});//reload the page
         })
         
         
@@ -60,7 +61,6 @@ var app=angular.module('cricket')
                    marginTop:'40',
                    marginBottom:'80',
                    plotBorderWidth:1
-                   
                },
                 title:{
                     text:'Individual batting performance'
@@ -70,7 +70,6 @@ var app=angular.module('cricket')
                     title:{
                         text:'Player'
                     }
-                    
                 },
                 yAxis:{
                      categories: ['Aus', 'Bng', 'Ind', 'Sri', 'Pak'],
@@ -79,7 +78,6 @@ var app=angular.module('cricket')
                         }
                 },
                 colorAxis:{
-                   
                     minColor:'#FFFFFF',
                     maxColor:'#33cc33'
                 },
@@ -90,8 +88,7 @@ var app=angular.module('cricket')
                     y:25,
                     layout:'vertical'
                 },
-                series:[
-                    {
+                series:[{
                         name:'Run',
                         data:[
                                 [0,0,23],[0,1,43],[0,2,34],[0,3,43],[0,4,44],
@@ -106,18 +103,14 @@ var app=angular.module('cricket')
                         },
                         borderWidth:1
                     }]
-            
-            
-        })
+            })
         
     })
 
     .controller('team_bowl_1',function($scope){
          
         Highcharts.chart('team_bowl_1',{
-                chart:{
-                    //type:'column'
-                },
+                
                 title:{
                     text:"Bowling performance of the team"
                 },
@@ -154,15 +147,15 @@ var app=angular.module('cricket')
                     },{
                         title:{
                             text:'Wickets',
-                             style:{
+                            style:{
                               color:Highcharts.getOptions().colors[5]
-                          }
+                            }
                         },
                         labels:{
                               style:{
                                  color:Highcharts.getOptions().colors[5]
                               }
-                          },
+                         },
                        
                         opposite:true,
                         min:0,
@@ -214,7 +207,8 @@ var app=angular.module('cricket')
                         type:'line',
                         name:"wickets",
                         color:Highcharts.getOptions().colors[5],
-                        data:[24,34,4,85]
+                        data:[4,4,7,5],
+                        yAxis:2
                     }]
             
         })
@@ -231,7 +225,6 @@ var app=angular.module('cricket')
             
             title: {
                 text: 'Team Statistics',
-                
             },
            colors:['#009933','#ff6600','#999966','#ff9933'],
            xAxis: {
@@ -243,56 +236,46 @@ var app=angular.module('cricket')
             yAxis: {
                 title: {
                     text: 'Runs'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
+                }
             },
             tooltip: {
                 valueSuffix: 'runs'
             },
-           
             series: [{
                 name: 'Match 1',
                 data: [10, 25, 8, 17, 31]
-            }, {
+            },{
                 name: 'Match 2',
                 data: [2, 15, 27, 19, 24]
-            }, {
+            },{
                 name: 'Match 3',
                 data: [0, 6 , 15, 30, 24]
-            },]
+            }]
 
         })
     }])
 
     .controller('team_bat_2',function($scope,ISO3166){
-       
-        
+     
         console.log(ISO3166.getCountryName($scope.country));
         
         Highcharts.chart('team_bat_2',{
-           chart: {
+            chart:{
                type: 'column'
             },
             title: {
                 text: 'Batting Partnership Number'
             },
-
-            xAxis: {
+            xAxis:{
                 type:'category',
                 min:1,
                 max:10,
-               
                 title: {
                     text: 'Partnership',
                     style:{
                         color:Highcharts.getOptions().colors[7]
                     }
-                },
-                
+                }
             },
             yAxis: {
                 min: 0,
@@ -309,17 +292,6 @@ var app=angular.module('cricket')
             },
             tooltip: {
                 valueSuffix: ' runs'
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        enabled: true
-                    }
-                }
-            },
-            
-            credits: {
-                enabled: false
             },
             series: [{
                 name: 'Match-1',
@@ -341,13 +313,9 @@ var app=angular.module('cricket')
         })
     })
 
-.controller('info',['$scope','$state','$stateParams','ISO3166','$cookies',function($scope,$state,$stateParams,ISO3166,$cookies){
-    
-     $scope.country=ISO3166.getCountryName($cookies.get('country'));        
-    console.log('team info -'+$state.is('team'));
-   
-    
-    
-    
-}])
+    .controller('info',['$scope','$state','$stateParams','ISO3166','$cookies',function($scope,$state,$stateParams,ISO3166,$cookies){
+
+         $scope.country=ISO3166.getCountryName($cookies.get('country'));        
+         console.log('team info -'+$state.is('team'));
+    }])
     

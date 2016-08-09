@@ -42,34 +42,28 @@ angular.module('cricket')
     })
     
     
-    .state('player.playerList.player_bat_1',{
-           url:'/1',
-            views:{
-              
-                'graph@player.playerList':{
-                    templateUrl:'views/player/player_bat_1.html',
-                    controller:'player_bat_1'
+    .state('player.playerList.performance',{
+        url:'/:id',
+        views:{
+            'graph@player.playerList':{
+                templateUrl:function($stateParams){
+                    if($stateParams.id<=2){
+                        return 'views/player/player_bat_'+$stateParams.id+'.html'
+                    }
+                    else{
+                        return 'views/player/player_bowl_'+($stateParams.id-2)+'.html';
+                    }
+                },
+                controller:function($stateParams){
+                     if($stateParams.id<=2)
+                        return 'player_bat_'+$stateParams.id;
+                    
+                    else
+                        return 'player_bowl_'+($stateParams.id-2);
                 }
-            }  
-    })
-    .state('player.playerList.player_bat_2',{
-           url:'/2',
-            views:{
-               
-                'graph@player.playerList':{
-                    templateUrl:'views/player/player_bat_2.html',
-                    controller:'player_bat_2'
-                }
-            }  
-    })
-    .state('player.playerList.player_bowl_1',{
-           url:'/3',
-            views:{
-                'graph@player.playerList':{
-                    templateUrl:'views/player/player_bowl_1.html',
-                    controller:'player_bowl_1'
-                }
-            }  
+            }
+        }
+        
     })
     
 })

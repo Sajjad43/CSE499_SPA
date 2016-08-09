@@ -44,49 +44,32 @@ angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies',"high
         
         })
     
-       .state('team.team_bat_1',{
-            url:"/1",
+      
+     .state('team.performance',{
+        
+            url:'/:id',
             views:{
-                
                 'graph@team':{
-                        templateUrl:'views/team/team_bat_1.html',
-                        controller:'team_bat_1'
-                }
-            }    
-        })
-     .state('team.team_bat_2',{
-            
-            url:'/2',
-            views:{
-                
-                'graph@team':{
-                        templateUrl:'views/team/team_bat_2.html',
-                        controller:'team_bat_2'
-                 }
-            }
-        })
-     .state('team.team_bat_3',{
-            
-            url:'/3',
-            views:{
-                
-                'graph@team':{
-                        templateUrl:'views/team/team_bat_3.html',
-                        controller:'team_bat_3'
+                    templateUrl:function($stateParams){
+                        if($stateParams.id<=3){
+                            return 'views/team/team_bat_'+$stateParams.id+'.html';
+                        }
+                        else{
+                            return 'views/team/team_bowl_'+($stateParams.id-3)+'.html'
+                        }
+                    },
+                    controller:function($stateParams){
+                         if($stateParams.id<=3){
+                            return 'team_bat_'+$stateParams.id;
+                        }
+                        else{
+                            return 'team_bowl_'+($stateParams.id-3)
+                        }
+                    }
                 }
             }
-        })
-     .state('team.team_bowl_1',{
-            url:'/4',
-            views:{
-                'graph@team':{
-                    templateUrl:'views/team/team_bowl_1.html',
-                    controller:'team_bowl_1'
-                 }
-            }    
-        })
-    
-    
+     })    
+      
      $urlRouterProvider.otherwise('/home');
     
-    })
+})

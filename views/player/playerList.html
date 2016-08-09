@@ -1,6 +1,5 @@
 <div class="row" ng-controller='playerList'>
      <div class='col-sm-10' id='tb'>
-        
          <table class="table table-striped">
             <thead>
                 <tr>
@@ -10,7 +9,6 @@
                     <th>Type</th>
                 
                 </tr> 
-             
             </thead>
             <tbody>
                 <tr ng-repeat="x in playerList" ui-sref=".playerList({player:x.name})">
@@ -21,10 +19,6 @@
                 </tr>     
              
             </tbody> 
-         
          </table>
-          
-         
-     </div>
-
+      </div>
 </div>
