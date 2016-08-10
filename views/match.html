@@ -1,26 +1,26 @@
 <div class="container-fluid" ng-controller="mapMatch" >
     <div class="row">
-            <div class="col-sm-4" >
-                    <center>
-                            <div>
-                                <button class='btn btn-info' data-toggle='modal' data-target='#modal'>Select team</button>
-                            </div>
-                            <div ui-view='map'></div>
-                    </center>
-                    <div ui-view='matchList'></div>
+        <div class="col-sm-4" >
+            <center>
+                <div>
+                    <button class='btn btn-info' data-toggle='modal' data-target='#modal'>Select team</button>
+                </div>
+                 <div ui-view='map'></div>
+            </center>
+         <div ui-view='matchList'></div>
 
-            </div>
-            <div class="col-sm-8">
-                    <div ui-view='info'></div>
-                    <div class="row">
+        </div>
+        <div class="col-sm-8">
+            <div ui-view='info'></div>
+                <div class="row">
 
-                        <div class="col-sm-11"  ui-view='graphBlock'></div>
+                    <div class="col-sm-11"  ui-view='graphBlock'></div>
 
-                    </div>
-            </div>
+                 </div>
+        </div>
     </div>
     
-    <div class="modal"  data-toggle="modal"  role='dialog' id="modal">
+    <div class="modal"  data-toggle="modal"  role='dialog' tabindex="-1" id="modal" >
 
         <div class="modal-dialog" role="document">
 
@@ -34,11 +34,11 @@
                     <form>
                         <div class="form-group">
                             <label for="team1">Team1</label>
-                            <select class="form-control" ng-model='A' ng-options='o for o in listTeam'></select> 
+                            <select class="form-control" ng-model='team_A' ng-options='countryx for countryx in countries'></select> 
                         </div>   
                         <div class='form-group'>
                             <label for="team2">Team2</label>
-                            <select  class="form-control" ng-model='B' ng-options='listTeam for listTeam in listTeam'></select>    
+                            <select  class="form-control" ng-model='team_B' ng-options='country for country in countries'></select>    
                         </div>    
                     </form>
 

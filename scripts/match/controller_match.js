@@ -2,19 +2,15 @@ var app=angular.module('cricket')
 
      .controller('mapMatch',['$scope','match','$cookies','$state','ISO3166',function($scope,match,$cookies,$state,ISO3166){
             
-         $scope.A='';$scope.B='';  
-         if(match.team1==''){
-                match.team1=ISO3166.getCountryName($cookies.get('country'));
-                console.log(match.team1);
-                match.team2="";
-                $scope.A=match.team1;
-                $scope.B=match.team2;
-             
-             
-            }    
-        
-            $scope.listTeam=match.listTeam;
-        
+            
+            $scope.team_A=match.listTeam[0];
+            $scope.team_B=match.listTeam[1];
+            $scope.countries=match.listTeam;
+            if(match.team1.length!=0&&match.team2.length!=0){
+                $scope.team_A=match.team1;
+                $scope.team_B=match.team2;
+            }
+            
          
             var map=AmCharts.makeChart( "mapMatch", {
                
@@ -31,17 +27,25 @@ var app=angular.module('cricket')
                     "smallMap": {}
                   });
          
-          map.dataProvider.areas=[
-              {'id':ISO3166.getCountryCode(match.team1),'showAsSelected':true},
-              {'id':ISO3166.getCountryCode(match.team2),'showAsSelected':true}
+        
+         
+         if(match.team1.length !=0 && match.team2.length!=0)
+         {  console.log('paint');
+             map.dataProvider.areas=[
+                {'id':ISO3166.getCountryCode(match.team1),'showAsSelected':true},
+                {'id':ISO3166.getCountryCode(match.team2),'showAsSelected':true}
               
-          ];
-         map.validateData();
+            ];
+             map.validateData();
+         }
          
           $scope.submit=function(){
-                match.team1=$scope.A;
-                match.team2=$scope.B;
-             $state.transitionTo('match.selectMatch');
+               
+                match.team1=$scope.team_A;
+                match.team2=$scope.team_B;
+                $('#modal').modal('hide');
+              
+              $state.transitionTo('match.selectMatch','',{reload:true});
               
               
          }
@@ -91,7 +95,7 @@ var app=angular.module('cricket')
                 chart:{}
                ,
                 title: {
-                      text: 'Combination chart'
+                      text: 'Bowling Performance'
                   },
                 xAxis: {
                       categories: ['Run Concede', 'Dot Balls', 'Overs', 'Extras']
