@@ -29,7 +29,9 @@ var app=angular.module('cricket')
          
         
          
-         if(match.team1.length !=0 && match.team2.length!=0)
+         if(match.team1.length !=0 && match.team2.length!=0&&
+            $state.is('match')==false
+           )
          {  
              map.dataProvider.areas=[
                 {'id':ISO3166.getCountryCode(match.team1),'showAsSelected':true},
@@ -45,7 +47,12 @@ var app=angular.module('cricket')
                 match.team2=$scope.team_B;
                 $('#modal').modal('hide');
               
-              $state.transitionTo('match.selectMatch','',{reload:true});
+              
+              if(match.team1!=match.team2)
+                $state.transitionTo('match.selectMatch','',{reload:true});
+              else{
+                  alert("Both of the team are same.Select the team again");
+              }
               
               
          }
@@ -65,18 +72,20 @@ var app=angular.module('cricket')
        
         //reflect the selected team on the UI
         if(match.selectedTeam.length==0)
-            {
-                $scope.selectTeam=$scope.team1;
-                console.log("match info- 1");
-            }
-        else if(match.selectedTeam!=$scope.team1&&match.selectedTeam!=$scope.team2)
+        {
+            $scope.selectTeam=$scope.team1;
+             
+        }
+        else if(match.selectedTeam!=$scope.team1&&
+                match.selectedTeam!=$scope.team2)
         {
             $scope.selectTeam=match.team1;
-             console.log("match info- 2");
+          
         }
         else
-        {$scope.selectTeam=match.selectedTeam;
-             console.log("match info- 3");
+        {
+            $scope.selectTeam=match.selectedTeam;
+            
         }
         
         $scope.changeTeam=function(x){
@@ -196,6 +205,12 @@ var app=angular.module('cricket')
                             text:'Bowler'
                         }  
                     },
+                    tooltip:{
+                        formatter:function(){
+                            return '<b>'+this.xAxis.categories[this.point.x]+"-"+
+                                    this.yAxis.categories[this.point.y]+"="+this.point.value+"</b>"
+                         }
+                    },   
                     series:[{
                       name:'Batsman and Bowler',
                       borderWidth:1,
@@ -214,7 +229,9 @@ var app=angular.module('cricket')
                          enabled:true,
                          color:'#000000'
                        }
+                        
                     }]
+             
             });
     }])
 
@@ -235,9 +252,6 @@ var app=angular.module('cricket')
                     },
                     lineColor: Highcharts.getOptions().colors[7]
             };
-                
-       
-
             
          Highcharts.chart('match_bat_3',{
             title:{

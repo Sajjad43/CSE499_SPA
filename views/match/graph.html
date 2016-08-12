@@ -1,6 +1,6 @@
 <ul class="nav nav-tabs">
-    <li ng-class='{"active":team1==selectTeam}'><a ui-sref='.performance({id:1})' ui-sref-opts="{'reload':true}" ng-click='changeTeam(team1)'>{{team1}}</a></li>
-    <li ng-class='{"active":team2==selectTeam}'><a ui-sref='.performance({id:2})' ui-sref-opts="{'reload':true}" ng-click='changeTeam(team2)'>{{team2}}</a></li>
+    <li ng-class='{"active":team1==selectTeam}'><a ui-sref='.performance({team:team1,id:1})' ui-sref-opts="{'reload':true}" ng-click='changeTeam(team1)'>{{team1}}</a></li>
+    <li ng-class='{"active":team2==selectTeam}'><a ui-sref='.performance({team:team2,id:2})' ui-sref-opts="{'reload':true}" ng-click='changeTeam(team2)'>{{team2}}</a></li>
 
 </ul>
 <center><h3>{{selectTeam}}</h3></center>
@@ -16,11 +16,11 @@
 <center>
     <ul class="pagination">
                                
-        <li  ui-sref-active='active' class="active"><a ui-sref=".performance({id:1})" ui-sref-opts="{'reload':true}" >1</a></li>
-        <li  ui-sref-active='active'><a ui-sref=".performance({id:2})" ui-sref-opts="{'reload':true}">2</a></li>
-        <li  ui-sref-active='active'><a ui-sref=".performance({id:3})" ui-sref-opts="{'reload':true}">3</a></li>
-        <li  ui-sref-active='active'><a ui-sref=".performance({id:4})" ui-sref-opts="{'reload':true}">4</a></li>
-        <li  ui-sref-active='active'><a ui-sref=".performance({id:5})" ui-sref-opts="{'reload':true}">5</a></li>
-        <li  ui-sref-active='active'><a ui-sref=".performance({id:6})" ui-sref-opts="{'reload':true}">6</a></li>      
+        <li  ui-sref-active='active' class="active"><a ui-sref=".performance({team:selectTeam,id:1})" ui-sref-opts="{'reload':true}" >1</a></li>
+        <li  ui-sref-active='active'><a ui-sref=".performance({team:selectTeam,id:2})" ui-sref-opts="{'reload':true}">2</a></li>
+        <li  ui-sref-active='active'><a ui-sref=".performance({team:selectTeam,id:3})" ui-sref-opts="{'reload':true}">3</a></li>
+        <li  ui-sref-active='active'><a ui-sref=".performance({team:selectTeam,id:4})" ui-sref-opts="{'reload':true}">4</a></li>
+        <li  ui-sref-active='active'><a ui-sref=".performance({team:selectTeam,id:5})" ui-sref-opts="{'reload':true}">5</a></li>
+        <li  ui-sref-active='active'><a ui-sref=".performance({team:selectTeam,id:6})" ui-sref-opts="{'reload':true}">6</a></li>      
     </ul>
 </center>

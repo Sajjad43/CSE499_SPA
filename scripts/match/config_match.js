@@ -64,7 +64,7 @@ angular.module('cricket')
     
     .state('match.selectMatch.matchList.performance',{
                
-        url:'/:id',
+        url:'/:team/:id',
         views:{
                
             'graph@match.selectMatch.matchList' :{
