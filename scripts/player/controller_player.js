@@ -66,7 +66,7 @@ var app=angular.module('cricket')
 
     .controller('player_bat_2',['$scope','$resource',function($scope,$resource){
 
-        Highcharts.chart('player_bat_2',{
+        var player_bat2=new Highcharts.chart('player_bat_2',{
             title:{
                 text:"Best performance of the batsmen on the respective batting position"
             },
@@ -108,19 +108,24 @@ var app=angular.module('cricket')
             series:[{
                 name:'No of times played',
                 color:Highcharts.getOptions().colors[3],
-                data:[20,40,50,4,5,34,35,45]
+                
             },{
                 name:'Batting Average',
                 color:Highcharts.getOptions().colors[8],
-                data:[20,20,40,14,5,45,2,12],
                 yAxis:1
             }]
         })
+        
+        
+        player_bat2.series[0].setData([20,40,50,4,5,34,35,45]);
+        player_bat2.series[1].setData([20,20,40,14,5,45,2,12]);
+        
+        
     }])
 
     .controller('player_bowl_1',['$scope','$resource',function($scope,$resource){
 
-        Highcharts.chart('player_bowl_1',{
+       var player_bowl1=new Highcharts.chart('player_bowl_1',{
             title:{
                 text:'Bowling Performance'
             },
@@ -176,26 +181,32 @@ var app=angular.module('cricket')
             series:[{
                 type:'column',
                 name:'Run',
-                data:[23,43,54,65,57],
+                
                 color:   Highcharts.getOptions().colors[7]
             },{
                 type:'column',
                 name:'Over',
-                data:[4,5,7,4,10],
                 yAxis:1,
                 color:Highcharts.getOptions().colors[3]
 
             },{
                 name:'wicket',
-                data:[2,3,4,1,6],
+                
                 yAxis:2
               }]
         })
+       
+       
+        player_bowl1.series[0].setData([23,43,54,65,57]);
+        player_bowl1.series[1].setData([4,5,7,4,10]);
+        player_bowl1.series[2].setData([2,3,4,1,6]);
+        
+       
     }])
 
     .controller('player_bat_1',['$scope','$resource',function($scope,$resource){
 
-        Highcharts.chart('player_bat_1',{
+       var player_bat1= new Highcharts.chart('player_bat_1',{
             title:{
                 text:'Team Batting performance for consecutive matches'
             },
@@ -239,12 +250,19 @@ var app=angular.module('cricket')
             series:[{
                 name:'Balls',
                 type:'column',
-                data:[30,50,6,7,18],
+               
                 yAxis:1
             },{
                 name:'Runs',
                 type:'column',
-                data:[50,22,16,37,48]
+              
             }]
         });
+        
+        player_bat1.series[0].setData([30,50,6,7,18]);
+        player_bat1.series[1].setData([50,22,16,37,48]);
+        
+        
+        
+        
     }]);
