@@ -1,4 +1,4 @@
-angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies',"highcharts-ng"])
+angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies',"highcharts-ng",'ngResource'])
  
  .config(function($stateProvider,$urlRouterProvider){
     
@@ -16,7 +16,6 @@ angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies',"high
                 }
             }
         })
-    
         .state('team',{
             url:'/team',
             views:{

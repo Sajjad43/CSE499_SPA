@@ -1,6 +1,6 @@
 var app=angular.module('cricket')
 
-     .controller('mapMatch',['$scope','match','$cookies','$state','ISO3166',function($scope,match,$cookies,$state,ISO3166){
+     .controller('mapMatch',['$scope','match','$cookies','$state','ISO3166','$resource',function($scope,match,$cookies,$state,ISO3166,$resource){
             
             
             $scope.team_A=match.listTeam[0];
@@ -59,13 +59,13 @@ var app=angular.module('cricket')
          
          
      }])
-    .controller('matchList',['$scope','match',function($scope,match){
+    .controller('matchList',['$scope','match','$resource',function($scope,match,$resource){
             $scope.listMatch=match.listMatch;
         
     }])
 
  
-    .controller('match_info',['$scope','match','$stateParams',function($scope,match,stateParams){
+    .controller('match_info',['$scope','match','$stateParams','$resource',function($scope,match,stateParams,$resource){
         $scope.team1=match.team1;
         $scope.team2=match.team2;
         $scope.selectTeam='';
@@ -97,7 +97,7 @@ var app=angular.module('cricket')
         
     }])
     
-     .controller('match_bowl_3',['$scope',function($scope){
+     .controller('match_bowl_3',['$scope','$resource',function($scope,$resource){
        
           Highcharts.chart('match_bowl_3',{
                 title: {
@@ -167,7 +167,7 @@ var app=angular.module('cricket')
        
     }])
 
-    .controller('match_bowl_2',['$scope',function($scope){
+    .controller('match_bowl_2',['$scope','$resource',function($scope,$resource){
 
          Highcharts.chart('match_bowl_2',{
                  
@@ -235,7 +235,7 @@ var app=angular.module('cricket')
             });
     }])
 
-    .controller('match_bat_3',['$scope',function($scope){
+    .controller('match_bat_3',['$scope','$resource',function($scope,$resource){
        
         var marker={
                            
@@ -305,7 +305,7 @@ var app=angular.module('cricket')
        
     }])
 
-     .controller('match_bowl_1',['$scope',function($scope){
+     .controller('match_bowl_1',['$scope','$resource',function($scope,$resource){
   
           Highcharts.chart('match_bowl_1',{
                     chart:{
@@ -353,7 +353,7 @@ var app=angular.module('cricket')
         
      }])
 
-    .controller('match_bat_2',['$scope','$state',function($scope,$state){
+    .controller('match_bat_2',['$scope','$state','$resource',function($scope,$state,$resource){
         console.log($state.$current.name);
         
            Highcharts.chart('match_bat_2',{
@@ -395,7 +395,7 @@ var app=angular.module('cricket')
      
     }])
 
-    .controller('match_bat_1',function($scope){
+    .controller('match_bat_1',['$scope','$resource',function($scope,$resource){
         
         Highcharts.chart('match_bat_1',{
                 chart:{
@@ -440,7 +440,7 @@ var app=angular.module('cricket')
                           }]
 				});
             
-      });
+      }]);
 
 
 

@@ -1,7 +1,7 @@
 var app=angular.module('cricket')
 
    
-    .controller('mapTeam',['$scope','$stateParams','$state','$cookies','home','ISO3166',function($scope,$stateParams,$state,$cookies,home,ISO3166){
+    .controller('mapTeam',['$scope','$stateParams','$state','$cookies','home','ISO3166','$resource',function($scope,$stateParams,$state,$cookies,home,ISO3166,$resource){
        //get the country id from cookies
        var country=$cookies.get('country');
         //map
@@ -53,29 +53,31 @@ var app=angular.module('cricket')
         
     }])
 
-    .controller('team_bat_3',function($scope){
+    .controller('team_bat_3',['$scope','$resource',function($scope,$resource){
           
-        Highcharts.chart('team_bat_3',{
+       var team_bat3 = new Highcharts.chart('team_bat_3',{
+               
                chart:{
                    type:'heatmap',
                    marginTop:'40',
                    marginBottom:'80',
                    plotBorderWidth:1
                },
-                title:{
-                    text:'Individual batting performance'
-                },
                 xAxis:{
-                    categories:['Alexander', 'Marie', 'Maximilian', 'Sophia', 'Lukas', 'Maria', 'Leon'],
+                   // categories:['Alexander', 'Marie', 'Maximilian', 'Sophia', 'Lukas', 'Maria', 'Leon'],
                     title:{
                         text:'Player'
                     }
                 },
                 yAxis:{
-                     categories: ['Aus', 'Bng', 'Ind', 'Sri', 'Pak'],
-                     title:{
-                            text:'Match'
-                        }
+                   // categories:['Aus', 'Bng', 'Ind', 'Sri', 'Pak'],
+                    title:{
+                         text:'Match'
+                    }
+                },
+            
+                title:{
+                    text:'Individual batting performance'
                 },
                 colorAxis:{
                     minColor:'#FFFFFF',
@@ -90,13 +92,7 @@ var app=angular.module('cricket')
                 },
                 series:[{
                         name:'Run',
-                        data:[
-                                [0,0,23],[0,1,43],[0,2,34],[0,3,43],[0,4,44],
-                                [1,0,23],[1,1,43],[1,2,34],[1,3,33],[1,4,54],
-                                [2,0,34],[2,1,13],[2,2,34],[2,3,93],[2,4,4],
-                                [3,0,73],[3,1,43],[3,2,24],[3,3,63],[3,4,24],
-                                [4,0,32],[4,1,53],[4,2,14],[4,3,93],[4,4,14],
-                             ],
+                        data:[{}],
                         dataLabels:{
                             enabled:true,
                             color: '#000000'
@@ -104,18 +100,37 @@ var app=angular.module('cricket')
                         borderWidth:1
                     }]
             })
-        
-    })
-
-    .controller('team_bowl_1',function($scope){
+       
+       var axisX=['Alexander', 'Marie', 'Maximilian', 'Sophia', 'Lukas', 'Maria', 'Leon']
+       var axisY=['Aus', 'Bng', 'Ind', 'Sri', 'Pak'];
+       var array=[
+                    [0,0,23],[0,1,43],[0,2,34],[0,3,43],[0,4,44],
+                    [1,0,23],[1,1,43],[1,2,34],[1,3,33],[1,4,54],
+                    [2,0,34],[2,1,13],[2,2,34],[2,3,93],[2,4,4],
+                    [3,0,73],[3,1,43],[3,2,24],[3,3,63],[3,4,24],
+                    [4,0,32],[4,1,53],[4,2,14],[4,3,93],[4,4,14],
+                ];
+     
+        team_bat3.xAxis[0].setCategories(axisX);
+        team_bat3.yAxis[0].setCategories(axisY);
+        team_bat3.series[0].setData(array);
+       
          
-        Highcharts.chart('team_bowl_1',{
+        
+    }])
+
+    .controller('team_bowl_1',['$scope','$resource',function($scope,$resource){
+         
+        var team_bowl1=new Highcharts.chart('team_bowl_1',{
                 
                 title:{
                     text:"Bowling performance of the team"
                 },
                 xAxis:{
-                    categories:['Aus','Ind','Bng','Zmb']
+                    //categories:['Aus','Ind','Bng','Zmb'],
+                    title:{
+                        text:'team'
+                    }
                 },
                 yAxis:[
                     {
@@ -176,7 +191,7 @@ var app=angular.module('cricket')
                     {   type:'column',
                         name:"Runs concded",
                         color:Highcharts.getOptions().colors[6],
-                        data:[34,54,54,45],
+                       // data:[34,54,54,45],
                         pointPadding:0.3,
                         pointPlacement:-0.2
                         
@@ -184,14 +199,14 @@ var app=angular.module('cricket')
                         type:'column',
                         name:"Extras",
                         color:Highcharts.getOptions().colors[3],
-                        data:[30,60,80,15],
+                        //data:[30,60,80,15],
                         pointPadding:0.4,
                         pointPlacement:-0.2
                     },{
                         type:'column',
                         name:"Boundary Balls",
                         color:Highcharts.getOptions().colors[10],
-                        data:[12,34,45,44],
+                        //data:[12,34,45,44],
                         pointPadding:0.3,
                         pointPlacement:0.2,
                         yAxis:1
@@ -199,7 +214,7 @@ var app=angular.module('cricket')
                         type:'column',
                         name:"Dot Balls",
                         color:Highcharts.getOptions().colors[9],
-                        data:[24,34,4,85],
+                        //data:[24,34,4,85],
                         pointPadding:0.4,
                         pointPlacement:0.2,
                         yAxis:1
@@ -207,28 +222,46 @@ var app=angular.module('cricket')
                         type:'line',
                         name:"wickets",
                         color:Highcharts.getOptions().colors[5],
-                        data:[4,4,7,5],
+                       // data:[4,4,7,5],
                         yAxis:2
                     }]
             
         })
         
+        var xAxis=['Aus','Ind','Bng','Zmb'];
+        team_bowl1.xAxis[0].setCategories(xAxis);
         
-    })
+        var runConcede=[34,54,54,45];
+        team_bowl1.series[0].setData(runConcede);
+       
+        var extras=[30,60,80,15];
+        team_bowl1.series[1].setData(extras);
+        
+        var boundaryBall=[12,34,45,44];
+        team_bowl1.series[2].setData(boundaryBall);
+        
+        var dotBalls=[24,34,4,85];
+        team_bowl1.series[3].setData(dotBalls);
+        
+        var wickets=[4,4,7,5];
+        team_bowl1.series[4].setData(wickets);
+        
+        
+    }])
 
 
-    .controller('team_bat_1',['$scope','$state',function($scope,$state){
+    .controller('team_bat_1',['$scope','$state','$resource',function($scope,$state,$resource){
         
          //console.log("Team controller team_bat_1 "+$cookies.get('country'));
         //console.log('team bat -'+$state.is('team'));
-        Highcharts.chart('team_bat_1',{
+       var team_bat1=new Highcharts.chart('team_bat_1',{
             
             title: {
                 text: 'Team Statistics',
             },
            colors:['#009933','#ff6600','#999966','#ff9933'],
            xAxis: {
-                categories: ['10', '20', '30', '40', '50'],
+                //categories: ['10', '20', '30', '40', '50'],
                 title: {
                     text: 'Over'
                 }
@@ -241,7 +274,7 @@ var app=angular.module('cricket')
             tooltip: {
                 valueSuffix: 'runs'
             },
-            series: [{
+            series: [/*{
                 name: 'Match 1',
                 data: [10, 25, 8, 17, 31]
             },{
@@ -250,16 +283,38 @@ var app=angular.module('cricket')
             },{
                 name: 'Match 3',
                 data: [0, 6 , 15, 30, 24]
-            }]
+            }*/]
 
-        })
+        });
+       
+        var xAxis=['10', '20', '30', '40', '50'];
+        team_bat1.xAxis[0].setCategories(xAxis);
+        
+        
+        var data=[
+            {
+                name: 'Match 1',
+                data: [10, 25, 8, 17, 31]
+            },{
+                name: 'Match 2',
+                data: [2, 15, 27, 19, 24]
+            },{
+                name: 'Match 3',
+                data: [0, 6 , 15, 30, 24]
+            }
+        ];
+       
+        for(var i=0;i<data.length;i++)
+            team_bat1.addSeries(data[i]);
+       
+       
     }])
 
-    .controller('team_bat_2',function($scope,ISO3166){
+    .controller('team_bat_2',['$scope','ISO3166','$resource',function($scope,ISO3166,$resource){
      
         console.log(ISO3166.getCountryName($scope.country));
         
-        Highcharts.chart('team_bat_2',{
+       var team_bat2= Highcharts.chart('team_bat_2',{
             chart:{
                type: 'column'
             },
@@ -293,10 +348,13 @@ var app=angular.module('cricket')
             tooltip: {
                 valueSuffix: ' runs'
             },
-            series: [{
+            series: []
+    
+        })
+       var data=[{
                 name: 'Match-1',
-                data: [107, 50, 104]
-            }, {
+                data: [107, 50,104]
+            },{
                 name: 'Match-2',
                 data: [33, 78, 100]
             }, {
@@ -304,16 +362,20 @@ var app=angular.module('cricket')
                 data: [75, 110, 65]
             },{
                 name: 'Match-4',
-                data: [35, 10, 5]
+                data: [35, 10,5]
             },{
                 name: 'Match-5',
                 data: [75, 20, 50]
             }]
-    
-        })
-    })
+       
+       for(var i=0;i<data.length;i++)
+           team_bat2.addSeries(data[i]);
+       
+       
+       
+    }])
 
-    .controller('info',['$scope','$state','$stateParams','ISO3166','$cookies',function($scope,$state,$stateParams,ISO3166,$cookies){
+    .controller('info',['$scope','$state','$stateParams','ISO3166','$cookies','$resource',function($scope,$state,$stateParams,ISO3166,$cookies,$resource){
 
          $scope.country=ISO3166.getCountryName($cookies.get('country'));        
          console.log('team info -'+$state.is('team'));

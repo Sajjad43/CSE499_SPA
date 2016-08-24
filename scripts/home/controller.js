@@ -2,7 +2,7 @@
 
 var myApp = angular.module('cricket')
    
-        .controller('home',['$scope','$state','$cookies','home','ISO3166',function($scope,$state,$cookies,home,ISO3166){
+        .controller('home',['$scope','$state','$cookies','home','ISO3166','$resource',function($scope,$state,$cookies,home,ISO3166,$resource){
             
             var map = AmCharts.makeChart( "mapdiv", {
                  

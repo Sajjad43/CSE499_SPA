@@ -1,6 +1,6 @@
 var app=angular.module('cricket')
 
-    .controller('mapPlayer',['$scope','$state','$stateParams','$cookies','home','ISO3166',function($scope,$state,$stateParams,$cookies,home,ISO3166){
+    .controller('mapPlayer',['$scope','$state','$stateParams','$cookies','home','ISO3166','$resource',function($scope,$state,$stateParams,$cookies,home,ISO3166,$resource){
        //get the country id
         var country=$cookies.get('country');
       
@@ -50,13 +50,13 @@ var app=angular.module('cricket')
 
     }])
 
-    .controller('infoPlayer',['$scope','$stateParams','$cookies',function($scope,$stateParams,$cookies){
+    .controller('infoPlayer',['$scope','$stateParams','$cookies','$resource',function($scope,$stateParams,$cookies,$resource){
        
          $scope.player=$stateParams.player;
        
     }])
 
-    .controller('playerList',['$scope','$stateParams','player',function($scope,$stateParams,player){
+    .controller('playerList',['$scope','$stateParams','player','$resource',function($scope,$stateParams,player,$resource){
        
         $scope.playerList=player.playerList;
          
@@ -64,7 +64,7 @@ var app=angular.module('cricket')
     }])
 
 
-    .controller('player_bat_2',['$scope',function($scope){
+    .controller('player_bat_2',['$scope','$resource',function($scope,$resource){
 
         Highcharts.chart('player_bat_2',{
             title:{
@@ -118,7 +118,7 @@ var app=angular.module('cricket')
         })
     }])
 
-    .controller('player_bowl_1',['$scope',function($scope){
+    .controller('player_bowl_1',['$scope','$resource',function($scope,$resource){
 
         Highcharts.chart('player_bowl_1',{
             title:{
@@ -193,7 +193,7 @@ var app=angular.module('cricket')
         })
     }])
 
-    .controller('player_bat_1',['$scope',function($scope){
+    .controller('player_bat_1',['$scope','$resource',function($scope,$resource){
 
         Highcharts.chart('player_bat_1',{
             title:{
