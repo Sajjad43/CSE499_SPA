@@ -99,10 +99,10 @@ var app=angular.module('cricket')
     
      .controller('match_bowl_3',['$scope','$resource',function($scope,$resource){
        
-          Highcharts.chart('match_bowl_3',{
+         var match_bowl3=new  Highcharts.chart('match_bowl_3',{
                 title: {
                       text: 'Bowling Performance'
-                  },
+                },
                 xAxis: {
                       categories: ['Run Concede', 'Dot Balls', 'Overs', 'Extras']
                   },
@@ -116,7 +116,12 @@ var app=angular.module('cricket')
                         }
                     }]
                 },
-                series: [{
+                series: []
+
+        });
+         
+         var series=[
+                {
                     type: 'column',
                     name: 'Jane',
                     data: [3, 2, 1, 3]
@@ -124,7 +129,7 @@ var app=angular.module('cricket')
                     type: 'column',
                     name: 'John',
                     data: [2, 3, 5, 7]
-                }, {
+                },{
                     type: 'column',
                     name: 'Joe',
                     data: [4, 3, 3, 9]
@@ -134,25 +139,17 @@ var app=angular.module('cricket')
                     data: [5, 12, 4, 5]
                 },
                 {
-                    type: 'column',
-                    name: 'Wore',
-                    data: [2, 6, 13, 19]
-                },
-                {
                     type: 'pie',
                     name: 'wickets',
                     data: [{
                         name: 'Jane',
                         y: 13,
-
                     }, {
                         name: 'John',
                         y: 23,
-
                     }, {
                         name: 'Joe',
                         y: 19,
-
                     }],
                     center: [100, 80],
                     size: 100,
@@ -160,16 +157,15 @@ var app=angular.module('cricket')
                     dataLabels: {
                         enabled: false
                     }
-                }]
-
-        });
-        
-       
+                }];
+         for(var i=0;i<series.length;i++)
+             match_bowl3.addSeries(series[i]);
+         
     }])
 
     .controller('match_bowl_2',['$scope','$resource',function($scope,$resource){
 
-         Highcharts.chart('match_bowl_2',{
+         var match_bowl2=new Highcharts.chart('match_bowl_2',{
                  
                      chart:{
                         type:'heatmap',
@@ -194,13 +190,11 @@ var app=angular.module('cricket')
                          text:"Batsman VS Bowler"
                     },
                     xAxis:{
-                        categories:['Shoaib','Khalid','Sami','Razzaq','Shafiq','Azhar','Yaqat','Hayes','Nana'],
                         title:{
                               text:'Batsman'
                         }
                     },
                     yAxis:{
-                        categories:['Balaji','RPSingh','Yuvraj','Dravid'],
                         title:{
                             text:'Bowler'
                         }  
@@ -214,17 +208,7 @@ var app=angular.module('cricket')
                     series:[{
                       name:'Batsman and Bowler',
                       borderWidth:1,
-                      data:[[0,0,33],[0,1,42],[0,2,34],[0,3,94],
-                            [1,0,23],[1,1,4],[1,2,54],[1,3,54],
-                            [2,0,23],[2,1,2],[2,2,24],[2,3,24],
-                            [3,0,2],[3,1,24],[3,2,54],[3,3,34],
-                            [4,0,2],[4,1,24],[4,2,54],[4,3,34],
-                            [5,0,2],[5,1,24],[5,2,54],[5,3,34],
-                            [6,0,2],[6,1,24],[6,2,54],[6,3,34],
-                            [7,0,2],[7,1,24],[7,2,54],[7,3,34],
-                            [8,0,2],[8,1,24],[8,2,54],[8,3,34],
-                            
-                          ],
+                     
                       dataLabels:{
                          enabled:true,
                          color:'#000000'
@@ -233,6 +217,23 @@ var app=angular.module('cricket')
                     }]
              
             });
+        
+        match_bowl2.xAxis[0].setCategories(['Shoaib','Khalid','Sami','Razzaq','Shafiq','Azhar','Yaqat','Hayes','Nana']);
+        match_bowl2.yAxis[0].setCategories(['Balaji','RPSingh','Yuvraj','Dravid']);
+        var data= [ [0,0,33],[0,1,42],[0,2,34],[0,3,94],
+                    [1,0,23],[1,1,4],[1,2,54],[1,3,54],
+                    [2,0,23],[2,1,2],[2,2,24],[2,3,24],
+                    [3,0,2],[3,1,24],[3,2,54],[3,3,34],
+                    [4,0,2],[4,1,24],[4,2,54],[4,3,34],
+                    [5,0,2],[5,1,24],[5,2,54],[5,3,34],
+                    [6,0,2],[6,1,24],[6,2,54],[6,3,34],
+                    [7,0,2],[7,1,24],[7,2,54],[7,3,34],
+                    [8,0,2],[8,1,24],[8,2,54],[8,3,34],
+                ];
+        match_bowl2.series[0].setData(data);
+        
+        
+        
     }])
 
     .controller('match_bat_3',['$scope','$resource',function($scope,$resource){
@@ -253,7 +254,7 @@ var app=angular.module('cricket')
                     lineColor: Highcharts.getOptions().colors[7]
             };
             
-         Highcharts.chart('match_bat_3',{
+        var match_bat3=new Highcharts.chart('match_bat_3',{
             title:{
               text:"Run comparison analysis"
             },
@@ -272,21 +273,21 @@ var app=angular.module('cricket')
                     text:'Runs'
                 }
             },
-            series:[
-                 {
-                    name:'team 1',
+            series:[]
+         });
+        
+        var series=[
+                {   name:'team 1',
                     data:[[0,0],{
-                        x:10,        
-                        y: 40,
-                        marker:marker
-            
-                    },[20,60],{
-                        x:30,        
-                        y: 120,
-                        marker:marker
-            
-                    },[40,200],[50,250]]
-
+                    x:10,        
+                    y: 40,
+                    marker:marker
+                },[20,60],{
+                    x:30,        
+                    y: 120,
+                    marker:marker
+                },[40,200],[50,250]]
+                
                 },{
                     name:'team 2',
                     data:[[0,0],{
@@ -298,16 +299,15 @@ var app=angular.module('cricket')
                         x:40,        
                         y: 205,
                         marker:marker }]
-
-                }]
-
-        });
+                }];
+        for(var i=0;i<series.length;i++)
+            match_bat3.addSeries(series[i]);
        
     }])
 
      .controller('match_bowl_1',['$scope','$resource',function($scope,$resource){
   
-          Highcharts.chart('match_bowl_1',{
+         var match_bowl1=new  Highcharts.chart('match_bowl_1',{
                     chart:{
                          type:'bar'
                     },
@@ -315,7 +315,7 @@ var app=angular.module('cricket')
                         text:'Run concede by each bowler over the 10overs interval'
                     },
                     xAxis: {
-                        categories: ['10', '20', '30', '40', '50'],
+                        //categories: ['10', '20', '30', '40', '50'],
                         title:{
                            text:'Over No'
                         }
@@ -331,32 +331,36 @@ var app=angular.module('cricket')
                             stacking: 'normal'
                         }
                     },
-				    series: [{
-                            name:"Shoaib",
-                             data:[{x:0,y:23},{x:2,y:45}]
-                        },{
-                             name:"Inzamam",
-                            data:[0,4,25,134,0]
-                        },{
-                             name:"Shoaib khan",
-                            data:[{x:2,y:25},{x:0,y:47},{x:4,y:23}]
-                        },{
-                             name:"Waqar",
-                            data:[0,14,39,24,4]
-
-                        },{
-                             name:"Amir",
-                            data:[0,4,4,15,41]
-
-                        }]
+				    series: []
          });
+         
+         var data=[
+             {     name:"Shoaib",
+                   data:[{x:0,y:23},{x:2,y:45}]
+                },{
+                    name:"Inzamam",
+                    data:[0,4,25,134,0]
+                },{
+                    name:"Shoaib khan",
+                     data:[{x:2,y:25},{x:0,y:47},{x:4,y:23}]
+                 },{
+                    name:"Waqar",
+                     data:[0,14,39,24,4]
+                 },{
+                    name:"Amir",
+                    data:[0,4,4,15,41]
+
+             }]
+         match_bowl1.xAxis[0].setCategories(['10', '20', '30', '40', '50']);
+         for(var i=0;i<data.length;i++)
+             match_bowl1.addSeries(data[i]);
         
      }])
 
     .controller('match_bat_2',['$scope','$state','$resource',function($scope,$state,$resource){
         console.log($state.$current.name);
         
-           Highcharts.chart('match_bat_2',{
+         var match_bat2=new Highcharts.chart('match_bat_2',{
                 chart:{
                      type:'column'
                 },
@@ -364,7 +368,7 @@ var app=angular.module('cricket')
                         text:'Partnership Analysis of the team'
                 },
                  xAxis: {
-                    categories:     ['1','2','3','4','5','6','7','8','9','10'],
+                    //categories:     ['1','2','3','4','5','6','7','8','9','10'],
                     title:{
                          text:'Partnership No'
                     }
@@ -375,29 +379,38 @@ var app=angular.module('cricket')
                         text:'Runs'
                     }
                 },
-                series: [{
-                            name:"Shoaib",
-                            data:[{x:0,y:23},{x:2,y:45}]
-                        },{
-                             name:"Inzamam",
-                             data:[{x:0,y:47},{x:2,y:25},{x:4,y:23}]
-                        },{
-                             name:"Shoaib khan",
-                             data:[0,61,0,4]
-                          },{
-                            name:"Razzaq khan",
-                            data:[0,0,0,4]
-                        },{
-                            name:"Sajjad",
-                            data:[{x:9,y:35}]
-                     }]
+                series: []
             });
+        
+        var series=[
+            {
+                name:"Shoaib",
+                data:[{x:0,y:23},{x:2,y:45}]
+            },{
+                name:"Inzamam",
+                data:[{x:0,y:47},{x:2,y:25},{x:4,y:23}]
+            },{
+                name:"Shoaib khan",
+                data:[0,61,0,4]
+            },{
+                 name:"Razzaq khan",
+                data:[0,0,0,4]
+            },{
+                  name:"Sajjad",
+                 data:[{x:9,y:35}]
+            }]
+        
+        match_bat2.xAxis[0].setCategories(['1','2','3','4','5','6','7','8','9','10']);
+         for(var i=0;i<series.length;i++)
+             match_bat2.addSeries(series[i]);
+        
+        
      
     }])
 
     .controller('match_bat_1',['$scope','$resource',function($scope,$resource){
         
-        Highcharts.chart('match_bat_1',{
+        var match_bat1=new Highcharts.chart('match_bat_1',{
                 chart:{
                         type:'bar'
                 },
@@ -405,7 +418,7 @@ var app=angular.module('cricket')
                         text:'Run contribution of each batsman'
                 },
                 xAxis: {
-                        categories: ['10', '20', '30', '40', '50'],
+                       // categories: ['10', '20', '30', '40', '50'],
                         title:{
                           text:'Per 10 overs'
                         }
@@ -416,29 +429,35 @@ var app=angular.module('cricket')
                          text:'Runs'
                     }
                 },
-                series: [{
-                            name:"Yasir",
-                            data:[{x:0,y:6},{x:4,y:7}]
-                        },{
-                             name:"Inzamam",
-                            data:[54,4,5,3,0]
-                        },{
-                            name:"Imran khan",
-                            data:[0,4,0,0,4]
-                        },{
-                            name:"Sayeed Anwar",
-                            data:[0,5,10,0,0]
-                        },{
-                            name:"Shoaib malik",
-                            data:[0,0,10,20,4]
-                        },{
-                            name:"Hussain Anwar",
-                            data:[0,0,10] 
-                        },{
-                            name:"Afridi Anwar",
-                            data:[0,0,19]
-                          }]
-				});
+                series: []
+        });
+        
+        var series=[{
+                        name:"Yasir",
+                        data:[{x:0,y:6},{x:4,y:7}]
+                    },{
+                         name:"Inzamam",
+                         data:[54,4,5,3,0]
+                    },{
+                        name:"Imran khan",
+                        data:[0,4,0,0,4]
+                    },{
+                        name:"Sayeed Anwar",
+                        data:[0,5,10,0,0]
+                    },{
+                        name:"Shoaib malik",
+                        data:[0,0,10,20,4]
+                    },{
+                        name:"Hussain Anwar",
+                        data:[0,0,10] 
+                    },{
+                        name:"Afridi Anwar",
+                        data:[0,0,19]
+                    }];
+        match_bat1.xAxis[0].setCategories(['10', '20', '30', '40', '50']);
+        for(var i=0;i<series.length;i++)
+             match_bat1.addSeries(series[i]);
+        
             
       }]);
 
