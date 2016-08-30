@@ -90,6 +90,12 @@ var app=angular.module('cricket')
                     y:25,
                     layout:'vertical'
                 },
+                tooltip:{
+                  formatter:function(){
+                      return '<b>'+team_bat3.xAxis[0].categories[this.point.x]+'-'+team_bat3.yAxis[0].categories[this.point.y]+'='+
+                          this.point.value+'<b>';
+                  }  
+                },
                 series:[{
                         name:'Run',
                         data:[{}],
