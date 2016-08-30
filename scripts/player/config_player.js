@@ -3,7 +3,7 @@ angular.module('cricket')
     
     $stateProvider
      .state('player',{
-           url:'/player',
+            url:'/player',
             views:{
                 'header':{
                     templateUrl:'views/header.html',
@@ -18,7 +18,8 @@ angular.module('cricket')
                     template:"<center><h4>No records</h4></center>"
                 },
                 'playerList@player':{
-                    templateUrl:'views/player/playerList.html'
+                    templateUrl:'views/player/playerList.html',
+                    controller:'playerList'
                 }
             }  
     })

@@ -14,9 +14,9 @@ var app=angular.module('cricket')
                       "getAreasFromMap": true
                     },
                     "areasSettings": {
-                      "autoZoom": true,
-                      "selectedColor": "#CC0000",
-                       "selectable":true
+                      
+                      "selectedColor": "#CC0000"
+                       
                     },
 
                     "smallMap": {}
@@ -26,7 +26,7 @@ var app=angular.module('cricket')
         var selectRegion=function(id,select){
             
             if(select==false)
-                map.dataProvider.areas.push({'id':id,
+                map.dataProvider.areas.push({'id':id,'selectable':true,
                                         'showAsSelected':true});
             else
                 map.dataProvider.areas.push({'id':id,
@@ -56,7 +56,7 @@ var app=angular.module('cricket')
        
     }])
 
-    .controller('playerList',['$scope','$stateParams','player','$resource',function($scope,$stateParams,player,$resource){
+    .controller('playerList',['$scope','$cookies','player','$resource',function($scope,$cookies,player,$resource){
        
         $scope.playerList=player.playerList;
          
@@ -116,7 +116,7 @@ var app=angular.module('cricket')
             }]
         })
         
-        
+        // set Data 
         player_bat2.series[0].setData([20,40,50,4,5,34,35,45]);
         player_bat2.series[1].setData([20,20,40,14,5,45,2,12]);
         
@@ -130,7 +130,8 @@ var app=angular.module('cricket')
                 text:'Bowling Performance'
             },
             xAxis:{
-                categories:['1','2','3','4','5'],
+                type:'category',
+               
                 title:{
                     text:'Match'
                 }
@@ -196,7 +197,7 @@ var app=angular.module('cricket')
               }]
         })
        
-       
+        player_bowl1.xAxis[0].setCategories(['1','2','3','4','5']) ;
         player_bowl1.series[0].setData([23,43,54,65,57]);
         player_bowl1.series[1].setData([4,5,7,4,10]);
         player_bowl1.series[2].setData([2,3,4,1,6]);
@@ -211,7 +212,7 @@ var app=angular.module('cricket')
                 text:'Team Batting performance for consecutive matches'
             },
             xAxis:{
-                categories:['1','2','3','4','5'],
+                type:'category',
                 title:{
                     text:'Matches'
                 }
@@ -243,7 +244,7 @@ var app=angular.module('cricket')
                     },
                     opposite:true
 
-                }],
+             }],
             tooltip:{
               shared:true
             },
@@ -259,6 +260,7 @@ var app=angular.module('cricket')
             }]
         });
         
+        player_bat1.xAxis[0].setCategories(['1','2','3','4','5we']);
         player_bat1.series[0].setData([30,50,6,7,18]);
         player_bat1.series[1].setData([50,22,16,37,48]);
         

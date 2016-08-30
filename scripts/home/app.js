@@ -49,6 +49,7 @@ angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies',"high
             url:'/:id',
             views:{
                 'graph@team':{
+                    
                     templateUrl:function($stateParams){
                         if($stateParams.id<=3){
                             return 'views/team/team_bat_'+$stateParams.id+'.html';

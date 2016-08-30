@@ -1,6 +1,7 @@
 angular.module('cricket')
 
-.service('home',function(){
+
+.service('home',['$resource',function($resource){
     
     
     this.generalInfo=function(){
@@ -14,4 +15,4 @@ angular.module('cricket')
     
     
     
-})
+}])

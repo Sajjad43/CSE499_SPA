@@ -36,11 +36,11 @@ angular.module('cricket')
                 },
             'matchList@match':{
                 templateUrl:'views/match/match_list.html',
-                //controller:'' //add the controller    
+                controller:'matchList'   
             }    
         }
     })
-      .state('match.selectMatch.matchList',{
+    .state('match.selectMatch.matchList',{
         url:'/:match',
         views:{ 
              
@@ -56,7 +56,7 @@ angular.module('cricket')
             
             'graph@match.selectMatch.matchList':{
                 templateUrl:'views/match/match_bat_1.html',
-               
+                controller:'match_bat_1'
             }
           
         }
@@ -74,6 +74,12 @@ angular.module('cricket')
                         return 'views/match/match_bat_'+$stateParams.id+'.html';
                      else
                          return 'views/match/match_bowl_'+($stateParams.id-3)+'.html'; 
+                },
+                controller:function($stateParams){
+                    if($stateParams.id<=3)
+                        return 'match_bat_'+$stateParams.id;
+                    else
+                        return 'match_bowl_'+($stateParams.id-3);
                 }
             }  
         }

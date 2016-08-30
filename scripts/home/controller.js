@@ -16,11 +16,12 @@ var myApp = angular.module('cricket')
                         },
                         "smallMap": {},
                   });
+            
             var countries=[];
             
             for(var i=0;i<home.listCountry().length;i++){
                 console.log(ISO3166.getCountryCode(home.listCountry()[i]));
-                countries[i]={'id':ISO3166.getCountryCode(home.listCountry()[i]),"selectable":true,'showAsSelected':"#CC0000"};
+                countries[i]={'id':ISO3166.getCountryCode(home.listCountry()[i]),"selectable":true,'showAsSelected':true};
             }
             map.dataProvider.areas=countries;
             map.validateData();

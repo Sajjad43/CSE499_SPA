@@ -98,7 +98,7 @@ var app=angular.module('cricket')
                             color: '#000000'
                         },
                         borderWidth:1
-                    }]
+                }]
             })
        
        var axisX=['Alexander', 'Marie', 'Maximilian', 'Sophia', 'Lukas', 'Maria', 'Leon']
@@ -150,14 +150,14 @@ var app=angular.module('cricket')
                         title:{
                             text:'Balls',
                             style:{
-                              color:Highcharts.getOptions().colors[4]
-                          },
+                                color:Highcharts.getOptions().colors[4]
+                            }
                         },
                         labels:{
                               style:{
                                  color:Highcharts.getOptions().colors[4]
                               }
-                          },
+                        },
                         opposite:true
                     },{
                         title:{
@@ -274,16 +274,7 @@ var app=angular.module('cricket')
             tooltip: {
                 valueSuffix: 'runs'
             },
-            series: [/*{
-                name: 'Match 1',
-                data: [10, 25, 8, 17, 31]
-            },{
-                name: 'Match 2',
-                data: [2, 15, 27, 19, 24]
-            },{
-                name: 'Match 3',
-                data: [0, 6 , 15, 30, 24]
-            }*/]
+            series: []
 
         });
        
@@ -292,8 +283,7 @@ var app=angular.module('cricket')
         
         
         var data=[
-            {
-                name: 'Match 1',
+            {   name: 'Match 1',
                 data: [10, 25, 8, 17, 31]
             },{
                 name: 'Match 2',
@@ -312,7 +302,7 @@ var app=angular.module('cricket')
 
     .controller('team_bat_2',['$scope','ISO3166','$resource',function($scope,ISO3166,$resource){
      
-        console.log(ISO3166.getCountryName($scope.country));
+        //console.log(ISO3166.getCountryName($scope.country));
         
        var team_bat2= Highcharts.chart('team_bat_2',{
             chart:{
@@ -351,6 +341,7 @@ var app=angular.module('cricket')
             series: []
     
         })
+       
        var data=[{
                 name: 'Match-1',
                 data: [107, 50,104]

@@ -30,12 +30,11 @@ var app=angular.module('cricket')
         
          
          if(match.team1.length !=0 && match.team2.length!=0&&
-            $state.is('match')==false
-           )
-         {  
+                $state.is('match')==false){  
+                
              map.dataProvider.areas=[
-                {'id':ISO3166.getCountryCode(match.team1),'showAsSelected':true},
-                {'id':ISO3166.getCountryCode(match.team2),'showAsSelected':true}
+                    {'id':ISO3166.getCountryCode(match.team1),'showAsSelected':true},
+                    {'id':ISO3166.getCountryCode(match.team2),'showAsSelected':true}
               
             ];
              map.validateData();
@@ -105,7 +104,7 @@ var app=angular.module('cricket')
                 },
                 xAxis: {
                       categories: ['Run Concede', 'Dot Balls', 'Overs', 'Extras']
-                  },
+                },
                 labels: {
                     items: [{
                         html: 'Wickets',
@@ -119,6 +118,16 @@ var app=angular.module('cricket')
                 series: []
 
         });
+         
+        
+         //for(var i=0;i<player.length;i++)
+         //    var bowler={};
+         //     bowler.graph='column'
+         //     bowler.name='jane'
+         //     bowler.data=[]
+         //     series.push(bowler)
+         
+         
          
          var series=[
                 {
@@ -141,16 +150,6 @@ var app=angular.module('cricket')
                 {
                     type: 'pie',
                     name: 'wickets',
-                    data: [{
-                        name: 'Jane',
-                        y: 13,
-                    }, {
-                        name: 'John',
-                        y: 23,
-                    }, {
-                        name: 'Joe',
-                        y: 19,
-                    }],
                     center: [100, 80],
                     size: 100,
                     showInLegend: false,
@@ -158,8 +157,21 @@ var app=angular.module('cricket')
                         enabled: false
                     }
                 }];
+         
+         series[series.length-1].data=[{
+                            name: 'Jane',
+                            y: 13,
+                        },{
+                            name: 'John',
+                            y: 23,
+                        },{
+                            name: 'Joe',
+                            y: 19,
+                        }]
+         
+         
          for(var i=0;i<series.length;i++)
-             match_bowl3.addSeries(series[i]);
+                match_bowl3.addSeries(series[i]);
          
     }])
 
@@ -201,8 +213,8 @@ var app=angular.module('cricket')
                     },
                     tooltip:{
                         formatter:function(){
-                            return '<b>'+this.xAxis.categories[this.point.x]+"-"+
-                                    this.yAxis.categories[this.point.y]+"="+this.point.value+"</b>"
+                            return '<b>'+match_bowl2.xAxis[0].categories[this.point.x]+"-"+
+                                    match_bowl2.yAxis[0].categories[this.point.y]+"="+this.point.value+"</b>"
                          }
                     },   
                     series:[{
@@ -298,7 +310,7 @@ var app=angular.module('cricket')
                     },[10,35],[20,43],[30,56],{
                         x:40,        
                         y: 205,
-                        marker:marker }]
+                        marker:marker}]
                 }];
         for(var i=0;i<series.length;i++)
             match_bat3.addSeries(series[i]);
@@ -335,8 +347,8 @@ var app=angular.module('cricket')
          });
          
          var data=[
-             {     name:"Shoaib",
-                   data:[{x:0,y:23},{x:2,y:45}]
+                {   name:"Shoaib",
+                    data:[{x:0,y:23},{x:2,y:45}]
                 },{
                     name:"Inzamam",
                     data:[0,4,25,134,0]
@@ -365,10 +377,9 @@ var app=angular.module('cricket')
                      type:'column'
                 },
                 title:{
-                        text:'Partnership Analysis of the team'
+                    text:'Partnership Analysis of the team'
                 },
                  xAxis: {
-                    //categories:     ['1','2','3','4','5','6','7','8','9','10'],
                     title:{
                          text:'Partnership No'
                     }
@@ -393,10 +404,10 @@ var app=angular.module('cricket')
                 name:"Shoaib khan",
                 data:[0,61,0,4]
             },{
-                 name:"Razzaq khan",
+                name:"Razzaq khan",
                 data:[0,0,0,4]
             },{
-                  name:"Sajjad",
+                 name:"Sajjad",
                  data:[{x:9,y:35}]
             }]
         
@@ -418,7 +429,6 @@ var app=angular.module('cricket')
                         text:'Run contribution of each batsman'
                 },
                 xAxis: {
-                       // categories: ['10', '20', '30', '40', '50'],
                         title:{
                           text:'Per 10 overs'
                         }
