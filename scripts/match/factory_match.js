@@ -1,5 +1,5 @@
 angular.module('cricket')
-    .service('match',function(home){
+    .service('match',['home','$resource','baseUrl',function(home,$resource,baseUrl){
     
         this.team1='';
         this.team2='';
@@ -36,7 +36,25 @@ angular.module('cricket')
             result:'pak'
         }]
         
+       this.matches=function( teamA, teamB){
+           var res=$resource(baseUrl+'match/:A/:B');
+           return res.query({A:teamA,B:teamB});
+       } 
+       
+       this.match=function( id){
+           var res=$resource(baseUrl+'match/info/:id');
+           return res.get({id:id});
+       }
+       
+       this.graph=function(country,matchId,graphId){
+           var res=$resource(baseUrl+'match/graph/:country/:match/:id');
+           return res.get({country:country,match:matchId,id:graphId});
+       }
+        
+        
+        
+        
     
-    })
+    }])
 
     

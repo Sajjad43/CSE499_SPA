@@ -1,6 +1,6 @@
 angular.module('cricket')
 
-.service('player',function(){
+.service('player',['$resource','baseUrl',function($resource,baseUrl){
     
     this.playerList=[
         {
@@ -34,4 +34,22 @@ angular.module('cricket')
             type:'Bowl'
         }]
     
-})
+    this.players=function( country){
+        var res=$resource(baseUrl+'player/:country');
+        return res.query({country:country});
+    }
+    
+    this.individualStats=function( name){
+         
+        var res=$resource(baseUrl+'player/stats/:name');
+        return res.get({name:name});
+    }
+    
+    this.graph=function( name, id){
+         
+        var res=$resource(baseUrl+'player/graph/:name/:id');
+        return res.get({name:name,id:id});
+    }
+    
+    
+}])

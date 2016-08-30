@@ -73,12 +73,14 @@ var app=angular.module('cricket')
         if(match.selectedTeam.length==0)
         {
             $scope.selectTeam=$scope.team1;
+             match.selectedTeam=$scope.team1;
              
         }
         else if(match.selectedTeam!=$scope.team1&&
                 match.selectedTeam!=$scope.team2)
         {
             $scope.selectTeam=match.team1;
+            match.selectedTeam=match.team1;
           
         }
         else
@@ -97,7 +99,7 @@ var app=angular.module('cricket')
     }])
     
      .controller('match_bowl_3',['$scope','$resource',function($scope,$resource){
-       
+       //we need an addition parameter for match id 
          var match_bowl3=new  Highcharts.chart('match_bowl_3',{
                 title: {
                       text: 'Bowling Performance'

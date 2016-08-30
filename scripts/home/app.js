@@ -1,5 +1,5 @@
 angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies',"highcharts-ng",'ngResource'])
- 
+.constant('baseUrl','http://localhost:3000/')
  .config(function($stateProvider,$urlRouterProvider){
     
     $stateProvider
@@ -58,7 +58,7 @@ angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies',"high
                             return 'views/team/team_bowl_'+($stateParams.id-3)+'.html'
                         }
                     },
-                    controller:function($stateParams){
+                    controllerProvider:function($stateParams){
                          if($stateParams.id<=3){
                             return 'team_bat_'+$stateParams.id;
                         }

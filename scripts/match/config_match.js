@@ -41,7 +41,7 @@ angular.module('cricket')
         }
     })
     .state('match.selectMatch.matchList',{
-        url:'/:match',
+        url:'/:match',//use match id here instead date,do the update the view file
         views:{ 
              
             'info@match':{
@@ -75,7 +75,7 @@ angular.module('cricket')
                      else
                          return 'views/match/match_bowl_'+($stateParams.id-3)+'.html'; 
                 },
-                controller:function($stateParams){
+                controllerProvider:function($stateParams){
                     if($stateParams.id<=3)
                         return 'match_bat_'+$stateParams.id;
                     else

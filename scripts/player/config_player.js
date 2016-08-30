@@ -55,7 +55,7 @@ angular.module('cricket')
                         return 'views/player/player_bowl_'+($stateParams.id-2)+'.html';
                     }
                 },
-                controller:function($stateParams){
+                controllerProvider:function($stateParams){
                      if($stateParams.id<=2)
                         return 'player_bat_'+$stateParams.id;
                     

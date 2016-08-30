@@ -1,7 +1,7 @@
 var app=angular.module('cricket')
 
    
-    .controller('mapTeam',['$scope','$stateParams','$state','$cookies','home','ISO3166','$resource',function($scope,$stateParams,$state,$cookies,home,ISO3166,$resource){
+    .controller('mapTeam',['$scope','$stateParams','$state','$cookies','home','ISO3166','team',function($scope,$stateParams,$state,$cookies,home,ISO3166,$team){
        //get the country id from cookies
        var country=$cookies.get('country');
         //map
@@ -256,7 +256,7 @@ var app=angular.module('cricket')
     }])
 
 
-    .controller('team_bat_1',['$scope','$state','$resource',function($scope,$state,$resource){
+    .controller('team_bat_1',['$scope','$state','team',function($scope,$state,team){
         
          //console.log("Team controller team_bat_1 "+$cookies.get('country'));
         //console.log('team bat -'+$state.is('team'));
@@ -302,6 +302,15 @@ var app=angular.module('cricket')
        
         for(var i=0;i<data.length;i++)
             team_bat1.addSeries(data[i]);
+        
+      team.infoStat().$promise.then(function(response){
+            console.log(response)
+        },function(response){
+            console.log("error");
+        });
+        
+        
+        
        
        
     }])
