@@ -44,6 +44,7 @@ var app=angular.module('cricket')
         //map is clicked
         map.addListener('clickMapObject',function(event){
             selectRegion(event.mapObject.id);
+            
             console.log('team map -'+$state.is('team'));
             $cookies.put('country',event.mapObject.id);
             $state.transitionTo('team',{},{reload:true});//reload the page
@@ -327,9 +328,8 @@ var app=angular.module('cricket')
                 text: 'Batting Partnership Number'
             },
             xAxis:{
-                type:'category',
-                min:1,
-                max:10,
+                categories:['1','2','3','4','5','6','7','8','9','10'],
+                
                 title: {
                     text: 'Partnership',
                     style:{
@@ -359,19 +359,19 @@ var app=angular.module('cricket')
        
        var data=[{
                 name: 'Match-1',
-                data: [107, 50,104]
+                data: [107, 50,104,45,67,7,5]
             },{
                 name: 'Match-2',
-                data: [33, 78, 100]
+                data: [33, 78, 100,5,67,8,23]
             }, {
                 name: 'Match-3',
-                data: [75, 110, 65]
+                data: [75, 110, 65,45,67,2]
             },{
                 name: 'Match-4',
-                data: [35, 10,5]
+                data: [35, 10,5,4,56,43,2]
             },{
                 name: 'Match-5',
-                data: [75, 20, 50]
+                data: [75, 20, 50,45,3,21,2]
             }]
        
        for(var i=0;i<data.length;i++)
