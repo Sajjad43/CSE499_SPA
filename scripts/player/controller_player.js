@@ -1,72 +1,51 @@
 var app=angular.module('cricket')
 
-    .controller('mapPlayer',['$scope','$state','$stateParams','$cookies','home','ISO3166','$resource',function($scope,$state,$stateParams,$cookies,home,ISO3166,$resource){
-       //get the country id
-        var country=$cookies.get('country');
-      
-        // set the map
-        var map=AmCharts.makeChart( "mapPlayer", {
-
-                    "type": "map",
-                   
-                    "dataProvider": {
-                      "map": "worldLow",
-                      "getAreasFromMap": true
-                    },
-                    "areasSettings": {
-                      
-                      "selectedColor": "#CC0000"
-                       
-                    },
-
-                    "smallMap": {}
-                  });
-        
-        //highlighting the map
-        var selectRegion=function(id,select){
+    .controller('playerSelect',['$scope','$state','$stateParams','$cookies','home','ISO3166','$resource',function($scope,$state,$stateParams,$cookies,home,ISO3166,$resource){
+       
+        $scope.team="";$scope.year="";
+         $scope.countries=home.listCountry();
+         $scope.startsWith =home.matching;
+        $scope.playerSubmit=function(){
             
-            if(select==false)
-                map.dataProvider.areas.push({'id':id,'selectable':true,
-                                        'showAsSelected':true});
-            else
-                map.dataProvider.areas.push({'id':id,
-                                             'color':'#00CC00'});
+            $state.go('player.playerSelect',{team:$scope.team,year:$scope.year},{reload:true});
             
-            map.validateData();
         }
-        //  highlight the cricketing nations  
-        for(var i=0;i<home.listCountry().length;i++){
-                selectRegion(ISO3166.getCountryCode(home.listCountry()[i]),false);
-        }
-        //the selected nation
-        selectRegion(country,true);
-        
-        map.addListener('clickMapObject',function(event){
-            selectRegion(event.mapObject.id);
-            $cookies.put('country',event.mapObject.id);
-            $state.go('player',{},{reload:true});//reload
-        });
-        
 
     }])
 
     .controller('infoPlayer',['$scope','$stateParams','$cookies','$resource',function($scope,$stateParams,$cookies,$resource){
        
          $scope.player=$stateParams.player;
+         $scope.team=$stateParams.team;
+         $scope.year=$stateParams.year;    
+                
+        
+        
        
     }])
 
-    .controller('playerList',['$scope','$cookies','player','$resource',function($scope,$cookies,player,$resource){
+    .controller('playerList',['$scope','$cookies','player','$stateParams','$resource',function($scope,$cookies,player,$stateParams,$resource){
        
+        var team=$stateParams.team;
+        var year=$stateParams.year;
+    
+        
         $scope.playerList=player.playerList;
          
         
     }])
 
 
-    .controller('player_bat_2',['$scope','$resource',function($scope,$resource){
+    .controller('player_bat_2',['$scope','$stateParams','$resource',function($scope,$stateParams,$resource){
 
+        
+        
+        var player=$stateParams.player;
+        
+        
         var player_bat2=new Highcharts.chart('player_bat_2',{
+            
+         
             title:{
                 text:"Best performance of the batsmen on the respective batting position"
             },
@@ -123,9 +102,12 @@ var app=angular.module('cricket')
         
     }])
 
-    .controller('player_bowl_1',['$scope','$resource',function($scope,$resource){
+    .controller('player_bowl_1',['$scope','$stateParams','$resource',function($scope,$stateParams,$resource){
 
-       var player_bowl1=new Highcharts.chart('player_bowl_1',{
+        var player=$stateParams.player;
+        
+        var player_bowl1=new Highcharts.chart('player_bowl_1',{
+            
             title:{
                 text:'Bowling Performance'
             },
@@ -205,9 +187,11 @@ var app=angular.module('cricket')
        
     }])
 
-    .controller('player_bat_1',['$scope','$resource',function($scope,$resource){
+    .controller('player_bat_1',['$scope','$stateParams','$resource',function($scope,$stateParams,$resource){
 
-       var player_bat1= new Highcharts.chart('player_bat_1',{
+        var player=$stateParams.player;
+     
+        var player_bat1= new Highcharts.chart('player_bat_1',{
             title:{
                 text:'Team Batting performance for consecutive matches'
             },

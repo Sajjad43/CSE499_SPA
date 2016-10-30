@@ -1,105 +1,58 @@
 var app=angular.module('cricket')
 
-     .controller('mapMatch',['$scope','match','$cookies','$state','ISO3166','$resource',function($scope,match,$cookies,$state,ISO3166,$resource){
+     .controller('matchSelect',['$scope','match','$cookies','$state','home','ISO3166','$resource',function($scope,match,$cookies,$state,home,ISO3166,$resource){
             
-            
-            $scope.team_A=match.listTeam[0];
-            $scope.team_B=match.listTeam[1];
-            $scope.countries=match.listTeam;
-            if(match.team1.length!=0&&match.team2.length!=0){
-                $scope.team_A=match.team1;
-                $scope.team_B=match.team2;
+            $scope.host="",$scope.opponent="",$scope.year;
+             $scope.countries=home.listCountry();
+            $scope.startsWith=home.matching;
+         
+         
+            $scope.matchSubmit=function(){
+                console.log($scope.host+$scope.opponent);
+                $state.go('match.selectMatch',{host:$scope.host,opponent:$scope.opponent,year:$scope.year},{reload:true});
             }
             
          
-            var map=AmCharts.makeChart( "mapMatch", {
-               
-                    "type": "map",
-                    "dataProvider": {
-                      "map": "worldLow",
-                      "getAreasFromMap": true
-                    },
-                    "areasSettings": {
-                        
-                        "selectedColor": "#CC0000"
-                    },
-                    
-                    "smallMap": {}
-                  });
-         
-        
-         
-         if(match.team1.length !=0 && match.team2.length!=0&&
-                $state.is('match')==false){  
-                
-             map.dataProvider.areas=[
-                    {'id':ISO3166.getCountryCode(match.team1),'showAsSelected':true},
-                    {'id':ISO3166.getCountryCode(match.team2),'showAsSelected':true}
-              
-            ];
-             map.validateData();
-         }
-         
-          $scope.submit=function(){
-               
-                match.team1=$scope.team_A;
-                match.team2=$scope.team_B;
-                $('#modal').modal('hide');
-              
-              
-              if(match.team1!=match.team2)
-                $state.transitionTo('match.selectMatch','',{reload:true});
-              else{
-                  alert("Both of the team are same.Select the team again");
-              }
-              
-              
-         }
-         
-         
      }])
-    .controller('matchList',['$scope','match','$resource',function($scope,match,$resource){
+    .controller('matchList',['$scope','match','$stateParams','$resource',function($scope,match,$stateParams,$resource){
+            
+            var host=$stateParams.host;
+            var opponent=$stateParams.opponent
+            var year=$stateParams.year;
             $scope.listMatch=match.listMatch;
-        
+            console.log($stateParams.host+$stateParams.opponent);
     }])
 
  
-    .controller('match_info',['$scope','match','$stateParams','$resource',function($scope,match,stateParams,$resource){
-        $scope.team1=match.team1;
-        $scope.team2=match.team2;
-        $scope.selectTeam='';
+    .controller('match_info',['$scope','match','$stateParams','$resource',function($scope,match,$stateParams,$resource){
        
-        //reflect the selected team on the UI
-        if(match.selectedTeam.length==0)
-        {
-            $scope.selectTeam=$scope.team1;
-             match.selectedTeam=$scope.team1;
-             
-        }
-        else if(match.selectedTeam!=$scope.team1&&
-                match.selectedTeam!=$scope.team2)
-        {
-            $scope.selectTeam=match.team1;
-            match.selectedTeam=match.team1;
-          
-        }
-        else
-        {
-            $scope.selectTeam=match.selectedTeam;
-            
-        }
-        
-        $scope.changeTeam=function(x){
-            match.selectedTeam=x; //team selected
-        }
+        $scope.team1=$stateParams.host;
+        $scope.team2=$stateParams.opponent;
+        $scope.selectTeam=$stateParams.host;
+        $scope.match=$stateParams.match;
+        $scope.mode='batting';
         
         
-        $scope.date=stateParams.match;
+        console.log($scope.match);
+        
+        $scope.changeTeam=function(team){
+            $scope.selectTeam=team;
+        }
+        
+      
         
     }])
     
-     .controller('match_bowl_3',['$scope','$resource',function($scope,$resource){
-       //we need an addition parameter for match id 
+     .controller('match_bowl_3',['$scope','$resource','$stateParams',function($scope,$resource,$stateParams){
+            //we need an addition parameter for match id 
+         
+         
+         var team=$stateParams.team;
+         var match=$stateParams.match;
+         
+         
+         console.log(team+" "+match);
+         
          var match_bowl3=new  Highcharts.chart('match_bowl_3',{
                 title: {
                       text: 'Bowling Performance'
@@ -177,9 +130,13 @@ var app=angular.module('cricket')
          
     }])
 
-    .controller('match_bowl_2',['$scope','$resource',function($scope,$resource){
+    .controller('match_bowl_2',['$scope','$resource','$stateParams',function($scope,$resource,$stateParams){
 
-         var match_bowl2=new Highcharts.chart('match_bowl_2',{
+        
+        var team=$stateParams.team;
+         var match=$stateParams.match;
+        
+        var match_bowl2=new Highcharts.chart('match_bowl_2',{
                  
                      chart:{
                         type:'heatmap',
@@ -250,8 +207,11 @@ var app=angular.module('cricket')
         
     }])
 
-    .controller('match_bat_3',['$scope','$resource',function($scope,$resource){
+    .controller('match_bat_3',['$scope','$resource','$stateParams',function($scope,$resource,$stateParams){
        
+        var team=$stateParams.team;
+        var match=$stateParams.match;
+        
         var marker={
                            
                     fillColor:'white',
@@ -319,8 +279,11 @@ var app=angular.module('cricket')
        
     }])
 
-     .controller('match_bowl_1',['$scope','$resource',function($scope,$resource){
+     .controller('match_bowl_1',['$scope','$resource','$stateParams',function($scope,$resource,$stateParams){
   
+         var team=$stateParams.team;
+         var match=$stateParams.match;
+         
          var match_bowl1=new  Highcharts.chart('match_bowl_1',{
                     chart:{
                          type:'bar'
@@ -371,8 +334,11 @@ var app=angular.module('cricket')
         
      }])
 
-    .controller('match_bat_2',['$scope','$state','$resource',function($scope,$state,$resource){
+    .controller('match_bat_2',['$scope','$state','$resource','$stateParams',function($scope,$state,$resource,$stateParams){
         console.log($state.$current.name);
+        
+         var team=$stateParams.team;
+         var match=$stateParams.match;
         
          var match_bat2=new Highcharts.chart('match_bat_2',{
                 chart:{
@@ -421,8 +387,10 @@ var app=angular.module('cricket')
      
     }])
 
-    .controller('match_bat_1',['$scope','$resource',function($scope,$resource){
-        
+    .controller('match_bat_1',['$scope','$resource','$stateParams',function($scope,$resource,$stateParams){
+       
+        var team=$stateParams.team;
+         var match=$stateParams.match;
         var match_bat1=new Highcharts.chart('match_bat_1',{
                 chart:{
                         type:'bar'

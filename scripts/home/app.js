@@ -1,6 +1,6 @@
-angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies',"highcharts-ng",'ngResource'])
+angular.module('cricket',['ui.bootstrap','ui.router','iso-3166-country-codes','ngCookies',"highcharts-ng",'ngResource','ng-typeahead'])
 .constant('baseUrl','http://localhost:3000/')
- .config(function($stateProvider,$urlRouterProvider){
+.config(function($stateProvider,$urlRouterProvider){
     
     $stateProvider
         .state('home',{
@@ -28,34 +28,49 @@ angular.module('cricket',['ui.router','iso-3166-country-codes','ngCookies',"high
                    
                 },
                 'info@team':{
+                    template:'<center><h3>Select a team</h3></center>'
+                }
+               
+            }
+        
+        })
+    
+    .state('team.select',{
+        
+        params:{
+            team:null,
+            year:null
+        },
+        views:{
+            
+                'info@team':{
                     templateUrl:'views/team/info.html',
                     controller:'info'
                 },
                 'graphBlock@team':{
                     templateUrl:'views/team/graph.html'
-                    //controller:'team_bat_1'
+                    
                 },
-                'graph@team':{
+                'graph@team.select':{
                     templateUrl:'views/team/team_bat_1.html',
                     controller:'team_bat_1'
                 }
-            }
-        
-        })
+        }
+    })
     
       
-     .state('team.performance',{
+     .state('team.select.performance',{
         
             url:'/:id',
             views:{
-                'graph@team':{
+                'graph@team.select':{
                     
-                    templateUrl:function($stateParams){
+                    template:function($stateParams){
                         if($stateParams.id<=3){
-                            return 'views/team/team_bat_'+$stateParams.id+'.html';
+                            return "<div><div id='team_bat_"+($stateParams.id)+"'></div></div>";
                         }
                         else{
-                            return 'views/team/team_bowl_'+($stateParams.id-3)+'.html'
+                            return "<div><div id='team_bowl_"+($stateParams.id-3)+"'></div></div>";
                         }
                     },
                     controllerProvider:function($stateParams){

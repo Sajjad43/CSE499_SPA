@@ -1,61 +1,31 @@
 var app=angular.module('cricket')
 
    
-    .controller('mapTeam',['$scope','$stateParams','$state','$cookies','home','ISO3166','team',function($scope,$stateParams,$state,$cookies,home,ISO3166,$team){
-       //get the country id from cookies
-       var country=$cookies.get('country');
-        //map
-        var map=AmCharts.makeChart( "mapTeam",{
-               
-                    "type": "map",
-                    "dataProvider": {
-                      "map": "worldLow",
-                      "getAreasFromMap": true
-                       
-                    },
-                    "areasSettings": {
-                      
-                       "selectedColor": "#CC0000",
-                       
-                    },
-                    
-                    "smallMap": {}
-                  });
-         
-            //code for highlighting
-            var selectRegion=function(id,select){
-                if(select==false)
-                    map.dataProvider.areas.push({'id':id,"selectable":true,
-                                                 'showAsSelected':true});
-                else
-                     map.dataProvider.areas.push({'id':id,'color':'#00CC00'});
-
-                map.validateData();
-            }
-            
-            //highlight the cricketing nations
-            for(var i=0;i<home.listCountry().length;i++){
-                
-                selectRegion(ISO3166.getCountryCode(home.listCountry()[i]),false);
-            }
-            //highlight the country from cookies
-            selectRegion(country,true);
-       
-        //map is clicked
-        map.addListener('clickMapObject',function(event){
-            selectRegion(event.mapObject.id);
-            
-            console.log('team map -'+$state.is('team'));
-            $cookies.put('country',event.mapObject.id);
-            $state.transitionTo('team',{},{reload:true});//reload the page
-        })
+    .controller('teamSelect',['$scope','$stateParams','$state','$cookies','home','ISO3166','team',function($scope,$stateParams,$state,$cookies,home,ISO3166,$team){
+      
+     
+         //get the country and year
+        $scope.team="";
+        $scope.year="";
         
+        $scope.countries=home.listCountry();
+        $scope.startsWith=home.matching;
+        
+         
+        $scope.teamSubmit=function(){
+           
+            $state.go('team.select',{team:$scope.team,year: $scope.year},{reload:true});
+        }
         
         
     }])
 
-    .controller('team_bat_3',['$scope','$resource',function($scope,$resource){
-          
+    .controller('team_bat_3',['$scope','$resource','$stateParams',function($scope,$resource,$stateParams){
+        
+        var team=$stateParams.team;
+        var year=$stateParams.year;
+        
+        
        var team_bat3 = new Highcharts.chart('team_bat_3',{
                
                chart:{
@@ -65,18 +35,15 @@ var app=angular.module('cricket')
                    plotBorderWidth:1
                },
                 xAxis:{
-                   // categories:['Alexander', 'Marie', 'Maximilian', 'Sophia', 'Lukas', 'Maria', 'Leon'],
                     title:{
                         text:'Player'
                     }
                 },
                 yAxis:{
-                   // categories:['Aus', 'Bng', 'Ind', 'Sri', 'Pak'],
                     title:{
                          text:'Match'
                     }
                 },
-            
                 title:{
                     text:'Individual batting performance'
                 },
@@ -121,20 +88,20 @@ var app=angular.module('cricket')
         team_bat3.xAxis[0].setCategories(axisX);
         team_bat3.yAxis[0].setCategories(axisY);
         team_bat3.series[0].setData(array);
-       
-         
-        
+     
     }])
 
-    .controller('team_bowl_1',['$scope','$resource',function($scope,$resource){
-         
+    .controller('team_bowl_1',['$scope','$resource','$stateParams',function($scope,$resource,$stateParams){
+        
+        var team=$stateParams.team;
+        var year=$stateParams.year;
         var team_bowl1=new Highcharts.chart('team_bowl_1',{
                 
                 title:{
                     text:"Bowling performance of the team"
                 },
                 xAxis:{
-                    //categories:['Aus','Ind','Bng','Zmb'],
+                   
                     title:{
                         text:'team'
                     }
@@ -198,7 +165,6 @@ var app=angular.module('cricket')
                     {   type:'column',
                         name:"Runs concded",
                         color:Highcharts.getOptions().colors[6],
-                       // data:[34,54,54,45],
                         pointPadding:0.3,
                         pointPlacement:-0.2
                         
@@ -206,14 +172,12 @@ var app=angular.module('cricket')
                         type:'column',
                         name:"Extras",
                         color:Highcharts.getOptions().colors[3],
-                        //data:[30,60,80,15],
                         pointPadding:0.4,
                         pointPlacement:-0.2
                     },{
                         type:'column',
                         name:"Boundary Balls",
                         color:Highcharts.getOptions().colors[10],
-                        //data:[12,34,45,44],
                         pointPadding:0.3,
                         pointPlacement:0.2,
                         yAxis:1
@@ -221,7 +185,6 @@ var app=angular.module('cricket')
                         type:'column',
                         name:"Dot Balls",
                         color:Highcharts.getOptions().colors[9],
-                        //data:[24,34,4,85],
                         pointPadding:0.4,
                         pointPlacement:0.2,
                         yAxis:1
@@ -229,7 +192,6 @@ var app=angular.module('cricket')
                         type:'line',
                         name:"wickets",
                         color:Highcharts.getOptions().colors[5],
-                       // data:[4,4,7,5],
                         yAxis:2
                     }]
             
@@ -257,18 +219,19 @@ var app=angular.module('cricket')
     }])
 
 
-    .controller('team_bat_1',['$scope','$state','team',function($scope,$state,team){
+    .controller('team_bat_1',['$scope','$state','team','$stateParams',function($scope,$state,team,$stateParams){
         
-         //console.log("Team controller team_bat_1 "+$cookies.get('country'));
-        //console.log('team bat -'+$state.is('team'));
-       var team_bat1=new Highcharts.chart('team_bat_1',{
+         var team=$stateParams.team;
+         var year=$stateParams.year;
+       
+        var team_bat1=new Highcharts.chart('team_bat_1',{
             
             title: {
                 text: 'Team Statistics',
             },
            colors:['#009933','#ff6600','#999966','#ff9933'],
            xAxis: {
-                //categories: ['10', '20', '30', '40', '50'],
+               
                 title: {
                     text: 'Over'
                 }
@@ -304,21 +267,20 @@ var app=angular.module('cricket')
         for(var i=0;i<data.length;i++)
             team_bat1.addSeries(data[i]);
         
-      team.infoStat().$promise.then(function(response){
+    /*  team.infoStat().$promise.then(function(response){
             console.log(response)
         },function(response){
             console.log("error");
-        });
-        
-        
-        
-       
+        });*/
        
     }])
 
-    .controller('team_bat_2',['$scope','ISO3166','$resource',function($scope,ISO3166,$resource){
+    .controller('team_bat_2',['$scope','ISO3166','$resource','$state','$stateParams',function($scope,ISO3166,$resource,$state,$stateParams){
      
-        //console.log(ISO3166.getCountryName($scope.country));
+        var team=$stateParams.team;
+        var year=$stateParams.year;
+         
+        console.log(year);
         
        var team_bat2= Highcharts.chart('team_bat_2',{
             chart:{
@@ -377,13 +339,12 @@ var app=angular.module('cricket')
        for(var i=0;i<data.length;i++)
            team_bat2.addSeries(data[i]);
        
-       
-       
     }])
 
     .controller('info',['$scope','$state','$stateParams','ISO3166','$cookies','$resource',function($scope,$state,$stateParams,ISO3166,$cookies,$resource){
 
-         $scope.country=ISO3166.getCountryName($cookies.get('country'));        
-         console.log('team info -'+$state.is('team'));
+        $scope.country=$stateParams.team;
+        $scope.year=$stateParams.year;
+       
     }])
     

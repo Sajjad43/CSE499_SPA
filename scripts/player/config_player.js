@@ -12,47 +12,60 @@ angular.module('cricket')
                     templateUrl:'views/player.html',
                 },
                 'info@player':{
-                   template:'<center><h3>Select a player from the list</h3></center>'
+                   template:'<center><h3>Select team and year</h3></center>'
                 },
                 'graphBlock@player':{
                     template:"<center><h4>No records</h4></center>"
-                },
-                'playerList@player':{
-                    templateUrl:'views/player/playerList.html',
-                    controller:'playerList'
                 }
+                
             }  
     })
     
-    
-    .state('player.playerList',{
+    .state('player.playerSelect',{
+        params:{
+          team:null,
+          year:null
+        },
+        views:{
+           'playerList@player':{
+                    templateUrl:'views/player/playerList.html',
+                    controller:'playerList'
+            }, 
+            'info@player':{
+                   template:'<center><h3>Select a player from the list</h3></center>'
+            },
+        }
+        
+        
+    })
+    .state('player.playerSelect.playerList',{
         url:'/:player',
         views:{
-             'info@player':{
+            
+            'info@player':{
                     templateUrl:'views/player/info.html',
                     controller:'infoPlayer'
-                },
-             'graphBlock@player':{
+            },
+            'graphBlock@player':{
                     templateUrl:'views/player/graph.html'
-                },
-             'graph@player.playerList':{
-                    templateUrl:'views/player/player_bat_1.html',
-                    controller:'player_bat_1'
+            },
+            'graph@player.playerSelect.playerList':{
+                templateUrl:'views/player/player_bat_1.html',
+                controller:'player_bat_1'
             }
         }
     })
-    
-    
-    .state('player.playerList.performance',{
+ 
+    .state('player.playerSelect.playerList.performance',{
         url:'/:id',
         views:{
-            'graph@player.playerList':{
-                templateUrl:function($stateParams){
+            'graph@player.playerSelect.playerList':{
+                template:function($stateParams){
                     if($stateParams.id<=2){
-                        return 'views/player/player_bat_'+$stateParams.id+'.html'
+                        return "<div><div id='player_bat_"+($stateParams.id)+"'></div></div>";
                     }
                     else{
-                        return 'views/player/player_bowl_'+($stateParams.id-2)+'.html';
+                        return "<div><div id='player_bowl_"+($stateParams.id-2)+"'></div></div>";
                     }
                 },
                 controllerProvider:function($stateParams){

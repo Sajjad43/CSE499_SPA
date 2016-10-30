@@ -10,13 +10,9 @@ angular.module('cricket')
                 templateUrl:'views/header.html'
             },
             'content@':{
-                templateUrl:'views/match.html',
-                controller:'mapMatch'
+                templateUrl:'views/match.html'
+                
             },
-            'map@match':{
-                templateUrl:'views/match/map.html',
-                controller:'mapMatch'
-            },  
             'info@match':{
                 template:"<center><h3>Select the teams,Click on the blue buttom on the left</h3></center>"
                 
@@ -25,11 +21,14 @@ angular.module('cricket')
     })
     
     .state('match.selectMatch',{
+        
+        params:{
+          host:null,
+          opponent:null,
+          year:null    
+        },
         views:{ 
-            'map@match':{
-                templateUrl:'views/match/map.html',
-                controller:'mapMatch'
-            },  
+              
             'info@match':{
                 template:"<center><h3>Select a match</h3></center>"    
 
@@ -67,19 +66,26 @@ angular.module('cricket')
         url:'/:team/:id',
         views:{
                
+            
             'graph@match.selectMatch.matchList' :{
-                 
-                templateUrl:function($stateParams){
+              
+                
+                template:function($stateParams){
                     if($stateParams.id<=3)                   
-                        return 'views/match/match_bat_'+$stateParams.id+'.html';
+                        return "<div><div id='match_bat_"+$stateParams.id+"'></div></div>"
                      else
-                         return 'views/match/match_bowl_'+($stateParams.id-3)+'.html'; 
+                         return "<div><div id='match_bowl_"+($stateParams.id-3)+"'></div></div>" 
                 },
                 controllerProvider:function($stateParams){
                     if($stateParams.id<=3)
+                    {
+                      
                         return 'match_bat_'+$stateParams.id;
-                    else
+                    }
+                    else{
+                      
                         return 'match_bowl_'+($stateParams.id-3);
+                    }
                 }
             }  
         }

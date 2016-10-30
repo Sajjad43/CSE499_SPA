@@ -4,6 +4,8 @@ var myApp = angular.module('cricket')
    
         .controller('home',['$scope','$state','$cookies','home','ISO3166','$resource',function($scope,$state,$cookies,home,ISO3166,$resource){
             
+           $scope.countries=home.listCountry();
+            
             var map = AmCharts.makeChart( "mapdiv", {
                  
                         "type": "map",
@@ -27,19 +29,29 @@ var myApp = angular.module('cricket')
             map.validateData();
             
             
-         map.addListener('clickMapObject',function(event){
-           
-            if(event.mapObject.id!=undefined){
-               map.dataProvider.areas=[{'id':''+event.mapObject.id,'showAsSelected':true}];
-                map.validateData();
-                
-                $cookies.put('country',event.mapObject.id);    
-                $state.transitionTo('team');
-            }
-            
-         });
+         
                
     
 
     }])
+
+.controller('countries',['$scope','home','$cookies','$state','$resource',function($scope,home,$cookies,$state,$resource){
+    $scope.countryList=home.listCountry();
+    
+    
+    
+    $resource('192.168.0.102:1000/team/team_batting_partnership/:id',{id:'@id'}).get({id:'Pakistan'},function(data){
+         console.log(data);
+    })
+    
+    
+    $scope.c=function(x){
+        console.log(x);
+        $cookies.put('country',x);    
+        $state.transitionTo('team');
+    }
+    
+}])
+
+
    
